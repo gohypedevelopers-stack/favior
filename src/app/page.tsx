@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ProductCard, { Product } from "@/components/ProductCard";
+import ProductSlider from "@/components/ProductSlider";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 
@@ -83,7 +84,7 @@ const products: Product[] = [
     originalPrice: "₹1,999",
     rating: 4.9,
     reviews: 128,
-    badge: "Online exclusive",
+    badge: "ONLINE EXCLUSIVE",
     img: "/og_shaker.png",
     swatches: ["#1a1a1a", "#8b5a2b", "#d4af37"],
   },
@@ -95,7 +96,7 @@ const products: Product[] = [
     originalPrice: "₹1,299",
     rating: 4.8,
     reviews: 94,
-    badge: "Online exclusive",
+    badge: "ONLINE EXCLUSIVE",
     img: "/og_wristband.png",
     swatches: ["#111111", "#8b5a2b"],
   },
@@ -107,9 +108,45 @@ const products: Product[] = [
     originalPrice: "₹3,999",
     rating: 5.0,
     reviews: 210,
-    badge: "Online exclusive",
+    badge: "ONLINE EXCLUSIVE",
     img: "/og_wristband.png",
     swatches: ["#111111", "#8b5a2b", "#333333"],
+  },
+  {
+    id: "p4",
+    name: "Resistance Band Set",
+    desc: "Set of 5 heavy-duty latex bands with varying resistance levels and travel pouch.",
+    price: "₹1,199",
+    originalPrice: "₹1,599",
+    rating: 4.9,
+    reviews: 76,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_shaker.png",
+    swatches: ["#333333", "#b8902a"],
+  },
+  {
+    id: "p5",
+    name: "Competition Lifting Belt",
+    desc: "10mm genuine leather powerlifting belt with quick-release steel lever buckle.",
+    price: "₹3,499",
+    originalPrice: "₹4,299",
+    rating: 4.9,
+    reviews: 142,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_wristband.png",
+    swatches: ["#111111", "#8b5a2b"],
+  },
+  {
+    id: "p6",
+    name: "Ultra Grip Chalk Bag",
+    desc: "Refillable gym chalk ball with drawstring pouch for maximum grip on heavy deadlifts.",
+    price: "₹699",
+    originalPrice: "₹899",
+    rating: 4.8,
+    reviews: 88,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_shaker.png",
+    swatches: ["#222222", "#c8a050"],
   },
 ];
 
@@ -162,6 +199,30 @@ const curateItems: Product[] = [
     img: "/og_shaker.png",
     swatches: ["#333333", "#b8902a"],
   },
+  {
+    id: "c5",
+    name: "Heavy-Duty Lifting Straps",
+    desc: "Neoprene padded cotton lifting straps for superior grip security on heavy rows.",
+    price: "₹799",
+    originalPrice: "₹999",
+    rating: 4.8,
+    reviews: 64,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_wristband.png",
+    swatches: ["#111111", "#8b5a2b"],
+  },
+  {
+    id: "c6",
+    name: "Insulated Gym Flask — 1L",
+    desc: "1000ml double-wall thermal flask that keeps water ice-cold for 24 hours.",
+    price: "₹1,899",
+    originalPrice: "₹2,499",
+    rating: 4.9,
+    reviews: 115,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_shaker.png",
+    swatches: ["#1a1a1a", "#d4af37"],
+  },
 ];
 
 /* ─────────────────────────────────────
@@ -189,11 +250,7 @@ export default function Home() {
             <span className="section-eyebrow">Curated Selection</span>
             <h2 className="section-heading">Bestsellers</h2>
           </div>
-          <div className="product-grid">
-            {products.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
+          <ProductSlider products={products} />
         </div>
       </section>
 
@@ -329,11 +386,7 @@ export default function Home() {
               VIEW ALL
             </a>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {curateItems.map((item) => (
-              <ProductCard key={item.id} product={item} />
-            ))}
-          </div>
+          <ProductSlider products={curateItems} />
         </div>
       </section>
 

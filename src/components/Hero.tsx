@@ -6,14 +6,12 @@ import Model3D from "@/components/Model3D";
 import { Hand, Check } from "lucide-react";
 
 const SHAKER_VARIANTS = [
-  { name: "300ml", price: "599", desc: "Pro Series • 300ml Compact Shaker" },
-  { name: "600ml", price: "1,499", desc: "Pro Series • 600ml Double-wall vacuum insulated" },
-  { name: "750ml", price: "1,799", desc: "Pro Series • 750ml Extended capacity with mixing grid" },
-  { name: "1000ml", price: "2,199", desc: "Pro Series • 1000ml Heavy Duty Shaker" }
+  { name: "300ml", price: "599", desc: "Pro Series • 300ml" },
+  { name: "750ml", price: "1,499", desc: "Pro Series • 750ml" }
 ];
 
 export default function Hero() {
-  const [localVariant, setLocalVariant] = useState(SHAKER_VARIANTS[1]); // Default 600ml
+  const [localVariant, setLocalVariant] = useState(SHAKER_VARIANTS[0]); // Default 300ml
   const [added, setAdded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -108,50 +106,48 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Specifications Panel (Exact layout & color theme matching reference image) */}
+          {/* Right Column: Specifications Panel (Guaranteed Direct CSS) */}
           <motion.div
             style={{ opacity: detailsOpacity, y: detailsY }}
-            className="col-span-1 flex flex-col justify-center pl-0 lg:pl-10 z-20 space-y-6"
+            className="col-span-1 hero-specs-panel"
           >
             <div>
-              <h2 className="text-4xl font-bold tracking-tight text-zinc-900">
+              <h2 className="hero-spec-title">
                 Favior Shaker
               </h2>
-              <p className="text-zinc-500 text-base font-medium mt-1">
+              <p className="hero-spec-subtitle">
                 Pro Series • {localVariant.name}
               </p>
             </div>
 
-            <div className="text-3xl font-bold text-zinc-900">
+            <div className="hero-spec-price">
               ₹{localVariant.price}
             </div>
 
-            <div className="space-y-3">
-              <p className="text-zinc-600 leading-relaxed text-sm font-normal">
+            <div>
+              <p className="hero-spec-desc">
                 Engineered for the dedicated athlete. Leak-proof guarantee with a premium matte finish.
               </p>
-              <ul className="space-y-2 text-sm text-zinc-600">
-                <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 bg-black rounded-full shrink-0" />
+              <ul className="hero-spec-bullets">
+                <li className="hero-spec-bullet-item">
+                  <span className="hero-spec-bullet-dot" />
                   <span>Premium Food-Grade Stainless Steel</span>
                 </li>
-                <li className="flex items-center gap-2.5">
-                  <span className="w-1.5 h-1.5 bg-black rounded-full shrink-0" />
+                <li className="hero-spec-bullet-item">
+                  <span className="hero-spec-bullet-dot" />
                   <span>Double-wall vacuum insulation</span>
                 </li>
               </ul>
             </div>
 
             {/* Capacity Pill Selector */}
-            <div className="bg-zinc-100/90 p-1.5 rounded-2xl flex gap-1 border border-zinc-200/80 max-w-xs">
+            <div className="hero-capacity-container">
               {SHAKER_VARIANTS.map((variant) => (
                 <button
                   key={variant.name}
                   onClick={() => setLocalVariant(variant)}
-                  className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                    localVariant.name === variant.name
-                      ? "bg-white shadow-sm text-black"
-                      : "text-zinc-400 hover:text-zinc-700"
+                  className={`hero-capacity-btn ${
+                    localVariant.name === variant.name ? "active" : ""
                   }`}
                 >
                   {variant.name}
@@ -159,18 +155,18 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* Action Buttons (Solid Black Buy Now + White Outline Add to Cart) */}
-            <div className="flex gap-4 pt-2 w-full max-w-md">
+            {/* Action Buttons */}
+            <div className="hero-action-row">
               <button
                 onClick={() => alert("Proceeding to checkout...")}
-                className="flex-1 h-12 rounded-full bg-black text-white hover:bg-zinc-800 text-sm font-semibold transition-all shadow-md flex items-center justify-center"
+                className="hero-btn-buy"
               >
                 Buy Now
               </button>
 
               <button
                 onClick={handleAddToCart}
-                className="flex-1 h-12 rounded-full bg-white border border-black text-black hover:bg-zinc-100 text-sm font-semibold transition-all shadow-sm flex items-center justify-center gap-2"
+                className="hero-btn-cart"
               >
                 {added ? (
                   <>

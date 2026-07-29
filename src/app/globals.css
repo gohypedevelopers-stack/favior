@@ -1176,18 +1176,55 @@ body {
   margin-bottom: 28px;
 }
 
-/* ── Luxury Product Card UI (Matching Image 1) ── */
+/* ── Luxury Product Grid & Slider UI ── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* Horizontal Slide Row */
+.product-slider-row {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 24px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.product-slider-row::-webkit-scrollbar {
+  display: none;
+}
+
+.product-slider-row {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.product-slider-item {
+  flex: 0 0 310px;
+  scroll-snap-align: start;
+  width: 310px;
+}
+
 .product-card-favior {
   background: #ffffff;
   border: 1px solid #e8e6df;
   border-radius: 16px;
-  padding: 16px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
+  width: 100%;
+  min-width: 270px;
   height: 100%;
 }
 
@@ -1236,20 +1273,20 @@ body {
 .product-img-wrap-favior {
   background: #f4f3ee;
   border-radius: 12px;
-  height: 240px;
+  height: 280px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 12px 0 16px;
+  margin: 14px 0 16px;
   overflow: hidden;
 }
 
 .product-img-wrap-favior .product-img {
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  padding: 16px;
+  padding: 0;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -1414,4 +1451,150 @@ body {
 
 .btn-add-cart-favior.added {
   background: #15803d;
+}
+
+/* ── Hero Specifications Panel (Exact Match to Reference Image) ── */
+.hero-specs-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 48px;
+  z-index: 20;
+}
+
+.hero-spec-title {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111111;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.hero-spec-subtitle {
+  color: #71717a;
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+.hero-spec-price {
+  font-size: 32px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 20px;
+}
+
+.hero-spec-desc {
+  color: #52525b;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  max-width: 480px;
+}
+
+.hero-spec-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hero-spec-bullet-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #52525b;
+}
+
+.hero-spec-bullet-dot {
+  width: 5px;
+  height: 5px;
+  background-color: #111111;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.hero-capacity-container {
+  background-color: #f4f4f5;
+  padding: 6px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  width: fit-content;
+}
+
+.hero-capacity-btn {
+  padding: 8px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: transparent;
+  color: #94a3b8;
+}
+
+.hero-capacity-btn.active {
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.hero-action-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 440px;
+}
+
+.hero-btn-buy {
+  flex: 1;
+  height: 50px;
+  border-radius: 9999px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+
+.hero-btn-buy:hover {
+  background-color: #18181b;
+}
+
+.hero-btn-cart {
+  flex: 1;
+  height: 50px;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #000000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.hero-btn-cart:hover {
+  background-color: #f4f4f5;
 }
