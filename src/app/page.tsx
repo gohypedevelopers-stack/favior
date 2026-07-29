@@ -1,5 +1,7 @@
 import Image from "next/image";
 import ProductCard, { Product } from "@/components/ProductCard";
+import Hero from "@/components/Hero";
+import Navbar from "@/components/Navbar";
 
 /* ─────────────────────────────────────
    SVG Icon Helpers
@@ -111,11 +113,55 @@ const products: Product[] = [
   },
 ];
 
-const curateItems = [
-  { id: "c1", name: "Pro Shaker — Onyx", price: "₹1,499", img: "/og_shaker.png", swatches: ["#1a1a1a", "#c9a84c"] },
-  { id: "c2", name: "Elite Wrist Wraps", price: "₹999", img: "/og_wristband.png", swatches: ["#111111", "#d4a843"] },
-  { id: "c3", name: "Gym Kit Bundle", price: "₹2,999", img: "/og_wristband.png", swatches: ["#222222", "#c8a050"] },
-  { id: "c4", name: "Resistance Band Set", price: "₹1,199", img: "/og_shaker.png", swatches: ["#333333", "#b8902a"] },
+const curateItems: Product[] = [
+  {
+    id: "c1",
+    name: "Pro Stainless Shaker — Onyx",
+    desc: "600ml double-wall insulated shaker with leak-proof lid and precision mixing grid.",
+    price: "₹1,499",
+    originalPrice: "₹1,999",
+    rating: 4.9,
+    reviews: 128,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_shaker.png",
+    swatches: ["#1a1a1a", "#8b5a2b", "#c9a84c"],
+  },
+  {
+    id: "c2",
+    name: "Elite Wrist Wraps — Black/Gold",
+    desc: "Heavy-duty 18\" wrist wraps with thumb loop, built for maximum support during heavy lifts.",
+    price: "₹999",
+    originalPrice: "₹1,299",
+    rating: 4.8,
+    reviews: 94,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_wristband.png",
+    swatches: ["#111111", "#8b5a2b"],
+  },
+  {
+    id: "c3",
+    name: "Performance Gym Kit",
+    desc: "Complete training essentials bundle: shaker, wraps, resistance bands & chalk bag.",
+    price: "₹2,999",
+    originalPrice: "₹3,999",
+    rating: 5.0,
+    reviews: 210,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_wristband.png",
+    swatches: ["#111111", "#8b5a2b", "#333333"],
+  },
+  {
+    id: "c4",
+    name: "Resistance Band Set",
+    desc: "Set of 5 heavy-duty latex bands with varying resistance levels and travel pouch.",
+    price: "₹1,199",
+    originalPrice: "₹1,599",
+    rating: 4.9,
+    reviews: 76,
+    badge: "ONLINE EXCLUSIVE",
+    img: "/og_shaker.png",
+    swatches: ["#333333", "#b8902a"],
+  },
 ];
 
 /* ─────────────────────────────────────
@@ -130,63 +176,11 @@ export default function Home() {
         Shaker &amp; Wrist Wrap Collection now live
       </div>
 
-      {/* ── Navigation ── */}
-      <nav className="nav">
-        <a href="/" className="nav-logo">
-          Favior
-        </a>
-        <ul className="nav-links">
-          <li>
-            <a href="/shakers">Shakers</a>
-          </li>
-          <li>
-            <a href="/wristbands">Wrist Wraps</a>
-          </li>
-          <li>
-            <a href="/accessories">Accessories</a>
-          </li>
-          <li>
-            <a href="/bundles">Bundles</a>
-          </li>
-          <li>
-            <a href="/apparel">Apparel</a>
-          </li>
-          <li>
-            <a href="/nutrition">Nutrition</a>
-          </li>
-          <li>
-            <a href="/about">About</a>
-          </li>
-        </ul>
-        <div className="nav-icons">
-          <SearchIcon />
-          <UserIcon />
-          <BagIcon />
-        </div>
-      </nav>
+      {/* ── Smart Aesop Navigation (Scroll-Up Reveal) ── */}
+      <Navbar />
 
-      {/* ── Hero ── */}
-      <section className="hero">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="hero-video"
-        >
-          <source src="/Veo_Hero_Video_Prompt_Use_th.mp4" type="video/mp4" />
-        </video>
-        <div className="hero-overlay" />
-        <div className="hero-content">
-          <p className="hero-eyebrow">New Collection</p>
-          <h1 className="hero-title serif">
-            Built for the <em>relentless</em> athlete
-          </h1>
-          <a href="/collections" className="btn btn-light">
-            Shop the Collection
-          </a>
-        </div>
-      </section>
+      {/* ── 3D Interactive Hero ── */}
+      <Hero />
 
       {/* ── Featured Products ── */}
       <section className="section">
@@ -326,34 +320,18 @@ export default function Home() {
         />
       </section>
 
-      {/* ── Curate Your ── */}
+      {/* ── Curate / Build Your Kit ── */}
       <section className="curate-section">
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div className="curate-header">
-            <h2 className="serif">Build Your Kit</h2>
-            <a href="/all-products" className="btn btn-outline" style={{ fontSize: 10 }}>
-              View All
+        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 24px" }}>
+          <div className="curate-header" style={{ marginBottom: 28 }}>
+            <h2 className="serif" style={{ fontSize: "32px" }}>Build Your Kit</h2>
+            <a href="/all-products" className="btn btn-outline" style={{ fontSize: 11 }}>
+              VIEW ALL
             </a>
           </div>
-          <div className="product-row">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {curateItems.map((item) => (
-              <div className="product-row-item" key={item.id}>
-                <Image
-                  src={item.img}
-                  alt={item.name}
-                  width={240}
-                  height={320}
-                  className="product-row-img"
-                  style={{ height: 240 }}
-                />
-                <div className="swatch-row">
-                  {item.swatches.map((s, i) => (
-                    <div key={i} className="swatch" style={{ background: s }} />
-                  ))}
-                </div>
-                <p className="product-row-name">{item.name}</p>
-                <p className="product-row-price">{item.price}</p>
-              </div>
+              <ProductCard key={item.id} product={item} />
             ))}
           </div>
         </div>
