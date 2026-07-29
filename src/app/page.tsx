@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ProductCard, { Product } from "@/components/ProductCard";
 
 /* ─────────────────────────────────────
    SVG Icon Helpers
@@ -71,27 +72,42 @@ const ArrowRightIcon = () => (
 /* ─────────────────────────────────────
    Data
 ───────────────────────────────────── */
-const products = [
+const products: Product[] = [
   {
     id: "p1",
     name: "Pro Stainless Shaker — Onyx",
     desc: "600ml double-wall insulated shaker with leak-proof lid and precision mixing grid.",
     price: "₹1,499",
+    originalPrice: "₹1,999",
+    rating: 4.9,
+    reviews: 128,
+    badge: "Online exclusive",
     img: "/og_shaker.png",
+    swatches: ["#1a1a1a", "#8b5a2b", "#d4af37"],
   },
   {
     id: "p2",
     name: "Elite Wrist Wraps — Black/Gold",
     desc: "Heavy-duty 18\" wrist wraps with thumb loop, built for maximum support during heavy lifts.",
     price: "₹999",
+    originalPrice: "₹1,299",
+    rating: 4.8,
+    reviews: 94,
+    badge: "Online exclusive",
     img: "/og_wristband.png",
+    swatches: ["#111111", "#8b5a2b"],
   },
   {
     id: "p3",
     name: "Performance Gym Kit",
     desc: "Complete training essentials bundle: shaker, wraps, resistance bands & chalk bag.",
     price: "₹2,999",
+    originalPrice: "₹3,999",
+    rating: 5.0,
+    reviews: 210,
+    badge: "Online exclusive",
     img: "/og_wristband.png",
+    swatches: ["#111111", "#8b5a2b", "#333333"],
   },
 ];
 
@@ -175,36 +191,13 @@ export default function Home() {
       {/* ── Featured Products ── */}
       <section className="section">
         <div className="container">
-          <p className="section-label">Bestsellers</p>
+          <div className="section-header">
+            <span className="section-eyebrow">Curated Selection</span>
+            <h2 className="section-heading">Bestsellers</h2>
+          </div>
           <div className="product-grid">
             {products.map((p) => (
-              <div className="product-card-aesop" key={p.id}>
-                <div className="product-card-top-bar">
-                  <span className="badge-online">{p.badge || "Online exclusive"}</span>
-                  <button className="btn-bookmark" aria-label="Bookmark item">
-                    <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M1 1V17L7 12L13 17V1H1Z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </button>
-                </div>
-                <div className="product-img-wrap-aesop">
-                  <Image
-                    src={p.img}
-                    alt={p.name}
-                    width={600}
-                    height={800}
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
-                  />
-                </div>
-                <div className="product-info-aesop">
-                  <h3 className="product-title-aesop">{p.name}</h3>
-                  <p className="product-desc-aesop">{p.desc}</p>
-                  <p className="product-price-aesop">{p.price}</p>
-                  <button className="btn-add-cart">
-                    Add to cart
-                  </button>
-                </div>
-              </div>
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         </div>
@@ -241,7 +234,10 @@ export default function Home() {
       {/* ── What's New ── */}
       <section className="section">
         <div className="container">
-          <p className="section-label">What&apos;s New</p>
+          <div className="section-header">
+            <span className="section-eyebrow">Latest Arrivals</span>
+            <h2 className="section-heading">What&apos;s New</h2>
+          </div>
         </div>
         <div className="whats-new-grid" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px", gap: 8 }}>
           <div className="wn-large" style={{ minHeight: 480 }}>
