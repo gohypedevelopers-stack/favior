@@ -80,11 +80,11 @@ export function CardGridSection({
           </div>
         </div>
 
-        {/* 4-Column Grid with crisp 10px gap matching reference inspect */}
+        {/* 4-Column Grid (2-column on mobile) */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 w-full"
+          className="grid grid-cols-2 lg:grid-cols-4 w-full"
           style={{
-            gap: "14px",
+            gap: "12px",
             width: "100%",
           }}
         >
