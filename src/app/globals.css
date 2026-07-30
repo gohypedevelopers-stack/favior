@@ -29,6 +29,26 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ── Custom Floating Solid Black Scrollbar Pill ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #000000;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #222222;
+}
+
+html {
+  scrollbar-color: #000000 transparent;
+  scrollbar-width: thin;
+}
+
 body {
   background: var(--bg-cream);
   color: var(--text-dark);
