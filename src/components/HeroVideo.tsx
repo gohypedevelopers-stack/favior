@@ -11,7 +11,7 @@ export default function HeroVideo() {
   };
 
   return (
-    <section className="relative w-full h-[90vh] min-h-[550px] max-h-[900px] overflow-hidden bg-black text-white flex items-center justify-center">
+    <section className="relative w-full h-screen overflow-hidden bg-black text-white flex items-center justify-center">
       {/* Video Background */}
       <video
         autoPlay
