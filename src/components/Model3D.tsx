@@ -45,6 +45,7 @@ const Model3D = forwardRef<HTMLElement, Model3DProps>(({ src, poster, alt, loadi
         alt={alt}
         loading={loading}
         camera-controls
+        disable-zoom
         auto-rotate
         camera-orbit={cameraOrbit}
         rotation-per-second="30deg"

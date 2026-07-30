@@ -36,27 +36,24 @@ export default function Model3DSection() {
     [isDesktop ? "50%" : "0%", "0%"]
   );
 
-  // Model Scale
+  // Model Scale (Fixed comfortable size without extreme zoom)
   const modelScale = useTransform(
     scrollYProgress,
     [0, 0.3, 0.6],
-    [1.10, 1.20, 0.90]
+    [1.0, 1.0, 1.0]
   );
 
   // Specifications Panel Opacity: Starts at 0 (hidden), fades in to 1 on scroll
   const detailsOpacity = useTransform(scrollYProgress, [0.35, 0.65], [0, 1]);
   const detailsY = useTransform(scrollYProgress, [0.35, 0.65], [40, 0]);
 
-  // Camera Orbit Rotation: 360° Rotation on scroll
-  const [cameraOrbit, setCameraOrbit] = useState("0deg 20deg 105%");
+  // Camera Orbit Rotation: Smooth horizontal 360° rotation at comfortable camera distance
+  const [cameraOrbit, setCameraOrbit] = useState("0deg 75deg 220%");
 
   useEffect(() => {
     const unsubscribe = scrollYProgress.on("change", (progress) => {
       const rotDeg = Math.round(progress * 360);
-      const startPhi = 20;
-      const endPhi = 75;
-      const currentPhi = Math.round(startPhi + (endPhi - startPhi) * Math.min(progress / 0.6, 1));
-      setCameraOrbit(`${rotDeg}deg ${currentPhi}deg 105%`);
+      setCameraOrbit(`${rotDeg}deg 75deg 220%`);
     });
     return () => unsubscribe();
   }, [scrollYProgress]);
@@ -74,6 +71,13 @@ export default function Model3DSection() {
         {/* Clean Light Studio Ambient Background */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-100/80 via-zinc-50 to-white z-0 pointer-events-none" />
 
+        {/* Faded Giant FAVIOR Watermark Text in Background */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none overflow-hidden">
+          <span className="font-heading font-extrabold text-[18vw] leading-none uppercase tracking-tighter text-zinc-900/[0.04] whitespace-nowrap">
+            FAVIOR
+          </span>
+        </div>
+
         {/* Pinned Hero Grid Content */}
         <div className="relative w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center justify-center h-full z-10">
 
@@ -87,7 +91,7 @@ export default function Model3DSection() {
           >
             <div className="w-full h-[520px] max-w-[520px] relative flex items-center justify-center">
               <Model3D
-                src="/gym_shaker_bottle.glb"
+                src="/3d model/favior.glb"
                 alt="Favior 3D Shaker"
                 cameraOrbit={cameraOrbit}
               />
