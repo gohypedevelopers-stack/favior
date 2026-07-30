@@ -31,19 +31,12 @@ const Model3D = forwardRef<HTMLElement, Model3DProps>(({ src, poster, alt, loadi
   }
 
   return (
-    <div className="w-full h-full relative flex items-center justify-center min-h-[400px]">
+    <div className="w-full h-full relative flex items-center justify-center">
       <Script
         src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
         type="module"
         strategy="afterInteractive"
       />
-      {/* Fallback/Loading State */}
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center z-0">
-          <div className="w-12 h-12 border-2 border-zinc-200 border-t-black rounded-full animate-spin" />
-        </div>
-      )}
-
       {/* @ts-ignore */}
       <model-viewer
         ref={internalRef}
@@ -61,9 +54,11 @@ const Model3D = forwardRef<HTMLElement, Model3DProps>(({ src, poster, alt, loadi
         environment-image="neutral"
         ar
         ar-modes="webxr scene-viewer quick-look"
-        style={{ width: "100%", height: "100%", minHeight: "450px", background: "transparent" }}
+        style={{ width: "100%", height: "100%", background: "transparent", "--poster-color": "transparent" } as React.CSSProperties}
         onLoad={() => setIsLoading(false)}
       >
+        {/* Hide default model-viewer progress bar / spinner slot */}
+        <div slot="progress-bar" style={{ display: "none" }}></div>
         {/* @ts-ignore */}
       </model-viewer>
     </div>
