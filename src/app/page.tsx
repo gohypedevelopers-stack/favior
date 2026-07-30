@@ -1,8 +1,12 @@
 import Image from "next/image";
 import ProductCard, { Product } from "@/components/ProductCard";
 import ProductSlider from "@/components/ProductSlider";
-import Hero from "@/components/Hero";
+import CardGridSection from "@/components/CardGridSection";
+import Model3DSection from "@/components/Model3DSection";
 import Navbar from "@/components/Navbar";
+import HeroVideo from "@/components/HeroVideo";
+import FaqSection from "@/components/FaqSection";
+import SiteFooter from "@/components/SiteFooter";
 
 /* ─────────────────────────────────────
    SVG Icon Helpers
@@ -78,75 +82,47 @@ const ArrowRightIcon = () => (
 const products: Product[] = [
   {
     id: "p1",
-    name: "Pro Stainless Shaker — Onyx",
+    name: "The Havane",
     desc: "600ml double-wall insulated shaker with leak-proof lid and precision mixing grid.",
-    price: "₹1,499",
-    originalPrice: "₹1,999",
+    price: "RS. 16,500",
+    originalPrice: "RS. 19,999",
     rating: 4.9,
     reviews: 128,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/og_shaker.png",
-    swatches: ["#1a1a1a", "#8b5a2b", "#d4af37"],
+    img: "/favior_shaker_white.png",
+    gallery: ["/favior_shaker_white.png", "/favior_wristwrap_white.png", "/favior_kit_white.png"],
   },
   {
     id: "p2",
-    name: "Elite Wrist Wraps — Black/Gold",
+    name: "The Aube",
     desc: "Heavy-duty 18\" wrist wraps with thumb loop, built for maximum support during heavy lifts.",
-    price: "₹999",
-    originalPrice: "₹1,299",
+    price: "RS. 15,900",
+    originalPrice: "RS. 18,299",
     rating: 4.8,
     reviews: 94,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/og_wristband.png",
-    swatches: ["#111111", "#8b5a2b"],
+    img: "/favior_wristwrap_white.png",
+    gallery: ["/favior_wristwrap_white.png", "/favior_shaker_white.png", "/favior_bands_white.png"],
   },
   {
     id: "p3",
-    name: "Performance Gym Kit",
+    name: "The Lumen",
     desc: "Complete training essentials bundle: shaker, wraps, resistance bands & chalk bag.",
-    price: "₹2,999",
-    originalPrice: "₹3,999",
+    price: "RS. 18,500",
+    originalPrice: "RS. 21,999",
     rating: 5.0,
     reviews: 210,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/og_wristband.png",
-    swatches: ["#111111", "#8b5a2b", "#333333"],
+    img: "/favior_kit_white.png",
+    gallery: ["/favior_kit_white.png", "/favior_shaker_white.png", "/favior_wristwrap_white.png"],
   },
   {
     id: "p4",
-    name: "Resistance Band Set",
+    name: "The Brume",
     desc: "Set of 5 heavy-duty latex bands with varying resistance levels and travel pouch.",
-    price: "₹1,199",
-    originalPrice: "₹1,599",
+    price: "RS. 15,900",
+    originalPrice: "RS. 17,599",
     rating: 4.9,
     reviews: 76,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/og_shaker.png",
-    swatches: ["#333333", "#b8902a"],
-  },
-  {
-    id: "p5",
-    name: "Competition Lifting Belt",
-    desc: "10mm genuine leather powerlifting belt with quick-release steel lever buckle.",
-    price: "₹3,499",
-    originalPrice: "₹4,299",
-    rating: 4.9,
-    reviews: 142,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/og_wristband.png",
-    swatches: ["#111111", "#8b5a2b"],
-  },
-  {
-    id: "p6",
-    name: "Ultra Grip Chalk Bag",
-    desc: "Refillable gym chalk ball with drawstring pouch for maximum grip on heavy deadlifts.",
-    price: "₹699",
-    originalPrice: "₹899",
-    rating: 4.8,
-    reviews: 88,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/og_shaker.png",
-    swatches: ["#222222", "#c8a050"],
+    img: "/favior_bands_white.png",
+    gallery: ["/favior_bands_white.png", "/favior_wristwrap_white.png", "/favior_shaker_white.png"],
   },
 ];
 
@@ -160,20 +136,22 @@ const curateItems: Product[] = [
     rating: 4.9,
     reviews: 128,
     badge: "ONLINE EXCLUSIVE",
-    img: "/og_shaker.png",
-    swatches: ["#1a1a1a", "#8b5a2b", "#c9a84c"],
+    img: "/favior_shaker_white.png",
+    gallery: ["/favior_shaker_white.png", "/favior_wristwrap_white.png", "/favior_kit_white.png"],
+    swatches: ["#1a1a1a", "#555555", "#000000"],
   },
   {
     id: "c2",
-    name: "Elite Wrist Wraps — Black/Gold",
+    name: "Elite Wrist Wraps — Black",
     desc: "Heavy-duty 18\" wrist wraps with thumb loop, built for maximum support during heavy lifts.",
     price: "₹999",
     originalPrice: "₹1,299",
     rating: 4.8,
     reviews: 94,
     badge: "ONLINE EXCLUSIVE",
-    img: "/og_wristband.png",
-    swatches: ["#111111", "#8b5a2b"],
+    img: "/favior_wristwrap_white.png",
+    gallery: ["/favior_wristwrap_white.png", "/favior_shaker_white.png", "/favior_bands_white.png"],
+    swatches: ["#111111", "#444444"],
   },
   {
     id: "c3",
@@ -184,8 +162,9 @@ const curateItems: Product[] = [
     rating: 5.0,
     reviews: 210,
     badge: "ONLINE EXCLUSIVE",
-    img: "/og_wristband.png",
-    swatches: ["#111111", "#8b5a2b", "#333333"],
+    img: "/favior_kit_white.png",
+    gallery: ["/favior_kit_white.png", "/favior_shaker_white.png", "/favior_wristwrap_white.png"],
+    swatches: ["#111111", "#333333"],
   },
   {
     id: "c4",
@@ -196,8 +175,9 @@ const curateItems: Product[] = [
     rating: 4.9,
     reviews: 76,
     badge: "ONLINE EXCLUSIVE",
-    img: "/og_shaker.png",
-    swatches: ["#333333", "#b8902a"],
+    img: "/favior_bands_white.png",
+    gallery: ["/favior_bands_white.png", "/favior_wristwrap_white.png", "/favior_shaker_white.png"],
+    swatches: ["#333333", "#111111"],
   },
   {
     id: "c5",
@@ -208,8 +188,9 @@ const curateItems: Product[] = [
     rating: 4.8,
     reviews: 64,
     badge: "ONLINE EXCLUSIVE",
-    img: "/og_wristband.png",
-    swatches: ["#111111", "#8b5a2b"],
+    img: "/favior_wristwrap_white.png",
+    gallery: ["/favior_wristwrap_white.png", "/favior_shaker_white.png"],
+    swatches: ["#111111"],
   },
   {
     id: "c6",
@@ -220,8 +201,9 @@ const curateItems: Product[] = [
     rating: 4.9,
     reviews: 115,
     badge: "ONLINE EXCLUSIVE",
-    img: "/og_shaker.png",
-    swatches: ["#1a1a1a", "#d4af37"],
+    img: "/favior_shaker_white.png",
+    gallery: ["/favior_shaker_white.png", "/favior_kit_white.png"],
+    swatches: ["#1a1a1a"],
   },
 ];
 
@@ -240,94 +222,26 @@ export default function Home() {
       {/* ── Smart Aesop Navigation (Scroll-Up Reveal) ── */}
       <Navbar />
 
-      {/* ── 3D Interactive Hero ── */}
-      <Hero />
+      {/* ── Hero Video Section ── */}
+      <HeroVideo />
 
-      {/* ── Featured Products ── */}
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow">Curated Selection</span>
-            <h2 className="section-heading">Bestsellers</h2>
-          </div>
-          <ProductSlider products={products} />
-        </div>
-      </section>
+      {/* ── 3D Interactive Model Section ── */}
+      <div id="section-3d-model">
+        <Model3DSection />
+      </div>
 
-      <hr className="divider" />
+      {/* ── Featured Products Grid ── */}
+      <CardGridSection
+        title="Bestsellers"
+        subtitle="Curated Selection"
+        products={products.slice(0, 4)}
+        viewAllHref="/all-products"
+      />
 
-      {/* ── Editorial Banner — Fitness ── */}
-      <section className="editorial-banner">
-        <Image
-          src="/og_wristband.png"
-          alt="Premium fitness gear editorial"
-          fill
-          style={{ objectFit: "cover" }}
-        />
-        <div className="editorial-banner-overlay">
-          <div className="editorial-banner-content">
-            <p className="eyebrow">Performance Engineering</p>
-            <h2 className="serif">
-              Engineered for strength, designed for obsession
-            </h2>
-            <p>
-              Every Favior product is stress-tested by elite athletes and refined
-              through relentless iteration. We build gear that survives the
-              grind — and inspires you to keep going.
-            </p>
-            <a href="/about/engineering" className="btn btn-light">
-              Our Process
-            </a>
-          </div>
-        </div>
-      </section>
 
-      {/* ── What's New ── */}
-      <section className="section">
-        <div className="container">
-          <div className="section-header">
-            <span className="section-eyebrow">Latest Arrivals</span>
-            <h2 className="section-heading">What&apos;s New</h2>
-          </div>
-        </div>
-        <div className="whats-new-grid" style={{ maxWidth: 1280, margin: "0 auto", padding: "0 48px", gap: 8 }}>
-          <div className="wn-large" style={{ minHeight: 480 }}>
-            <Image
-              src="/og_wristband.png"
-              alt="Premium gym accessories flatlay"
-              width={600}
-              height={900}
-              className="wn-img"
-              style={{ height: "100%", minHeight: 480 }}
-            />
-          </div>
-          <div className="wn-top-right">
-            <Image
-              src="/og_shaker.png"
-              alt="Pro Stainless Shaker"
-              width={900}
-              height={280}
-              className="wn-img"
-              style={{ height: 234 }}
-            />
-          </div>
-          <div className="wn-bottom-right">
-            <Image
-              src="/og_wristband.png"
-              alt="Elite Wrist Wraps"
-              width={900}
-              height={280}
-              className="wn-img"
-              style={{ height: 234 }}
-            />
-          </div>
-        </div>
-        <div className="container" style={{ marginTop: 40 }}>
-          <a href="/new-arrivals" className="btn btn-outline">
-            View All New Arrivals <ArrowRightIcon />
-          </a>
-        </div>
-      </section>
+
+
+
 
       {/* ── Split: Shaker / Text ── */}
       <section className="split-section">
@@ -378,35 +292,32 @@ export default function Home() {
       </section>
 
       {/* ── Curate / Build Your Kit ── */}
-      <section className="curate-section">
-        <div style={{ maxWidth: 1440, margin: "0 auto", padding: "0 24px" }}>
-          <div className="curate-header" style={{ marginBottom: 28 }}>
-            <h2 className="serif" style={{ fontSize: "32px" }}>Build Your Kit</h2>
-            <a href="/all-products" className="btn btn-outline" style={{ fontSize: 11 }}>
-              VIEW ALL
-            </a>
-          </div>
-          <ProductSlider products={curateItems} />
-        </div>
-      </section>
+      <CardGridSection
+        title="Build Your Kit"
+        subtitle="Exclusive Performance Bundles"
+        products={curateItems.slice(0, 4)}
+        viewAllHref="/all-products"
+      />
 
       {/* ── Storefront / In-Store ── */}
-      <section className="storefront-section">
+      <section className="storefront-section w-full relative overflow-hidden bg-neutral-950">
         <Image
-          src="/og_wristband.png"
+          src="/favior_wristwrap_banner.png"
           alt="Favior fitness gear collection"
           fill
-          style={{ objectFit: "cover" }}
+          sizes="100vw"
+          priority
+          className="object-cover w-full h-full opacity-90"
+          style={{ objectFit: "cover", objectPosition: "center" }}
         />
         <div className="storefront-overlay">
           <div className="storefront-content">
-            <p className="eyebrow">Find Us</p>
-            <h2 className="serif">Train. Perform. Repeat.</h2>
+            <p className="eyebrow">Flagship Store</p>
+            <h2 className="serif">Visit Favior.</h2>
             <p>
-              Visit one of our premium retail flagship locations where our
-              specialists can fit you with the perfect training kit.
+              Experience our premium training gear in person. Get fitted by our specialists at our flagship locations.
             </p>
-            <a href="/stores" className="btn btn-light">
+            <a href="/stores" className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-black transition-all duration-200 hover:bg-neutral-200 shadow-md">
               Locate a Store
             </a>
           </div>
@@ -415,8 +326,13 @@ export default function Home() {
 
       {/* ── Camera / Editorial Pair ── */}
       <section className="section camera-section">
-        <div className="container">
-          <p className="section-label">Journal</p>
+        <div className="container" style={{ marginBottom: "28px" }}>
+          <p className="uppercase tracking-[0.22em] font-semibold text-zinc-500 text-[11px] mb-1">
+            INSIGHTS & STORIES
+          </p>
+          <h2 className="text-[28px] sm:text-[34px] font-bold uppercase tracking-tight text-zinc-900 leading-none">
+            JOURNAL
+          </h2>
         </div>
         <div className="camera-grid" style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div className="camera-content">
@@ -443,81 +359,11 @@ export default function Home() {
       </section>
 
 
+      {/* ── FAQ Section ── */}
+      <FaqSection />
+
       {/* ── Footer ── */}
-      <footer className="footer">
-        <div className="footer-grid" style={{ maxWidth: 1280, margin: "0 auto 0" }}>
-          <div className="footer-brand">
-            <div className="logo">Favior</div>
-            <p>
-              We engineer premium fitness gear of uncommon quality — shakers,
-              wrist wraps, resistance bands and athlete accessories — built for
-              those who refuse to compromise.
-            </p>
-          </div>
-
-          <div className="footer-col">
-            <h4>Shop</h4>
-            <ul>
-              <li><a href="/shakers">Shakers</a></li>
-              <li><a href="/wristbands">Wrist Wraps</a></li>
-              <li><a href="/accessories">Accessories</a></li>
-              <li><a href="/bundles">Bundles</a></li>
-              <li><a href="/apparel">Apparel</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h4>About</h4>
-            <ul>
-              <li><a href="/about">Our Story</a></li>
-              <li><a href="/sustainability">Sustainability</a></li>
-              <li><a href="/ingredients">Ingredients</a></li>
-              <li><a href="/stores">Store Locator</a></li>
-              <li><a href="/journal">Journal</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-col">
-            <h4>Support</h4>
-            <ul>
-              <li><a href="/contact">Contact Us</a></li>
-              <li><a href="/shipping">Shipping</a></li>
-              <li><a href="/returns">Returns</a></li>
-              <li><a href="/faq">FAQ</a></li>
-              <li><a href="/privacy">Privacy Policy</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-newsletter">
-            <h4>Newsletter</h4>
-            <p>
-              Subscribe to receive updates on new products, journal entries and
-              exclusive offers.
-            </p>
-            <div className="newsletter-form">
-              <input
-                type="email"
-                placeholder="Your email address"
-                id="newsletter-email"
-              />
-              <button type="submit">Subscribe</button>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="footer-bottom"
-          style={{ maxWidth: 1280, margin: "0 auto" }}
-        >
-          <p>© 2026 Favior. All rights reserved.</p>
-          <div className="social-links">
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">Facebook</a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a>
-            <a href="https://pinterest.com" target="_blank" rel="noopener noreferrer">Pinterest</a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
