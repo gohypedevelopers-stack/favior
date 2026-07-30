@@ -299,30 +299,7 @@ export default function Home() {
         viewAllHref="/all-products"
       />
 
-      {/* ── Storefront / In-Store ── */}
-      <section className="storefront-section w-full relative overflow-hidden bg-neutral-950">
-        <Image
-          src="/favior_wristwrap_banner.png"
-          alt="Favior fitness gear collection"
-          fill
-          sizes="100vw"
-          priority
-          className="object-cover w-full h-full opacity-90"
-          style={{ objectFit: "cover", objectPosition: "center" }}
-        />
-        <div className="storefront-overlay">
-          <div className="storefront-content">
-            <p className="eyebrow">Flagship Store</p>
-            <h2 className="serif">Visit Favior.</h2>
-            <p>
-              Experience our premium training gear in person. Get fitted by our specialists at our flagship locations.
-            </p>
-            <a href="/stores" className="inline-flex items-center justify-center rounded-full bg-white px-8 py-3.5 text-[11px] font-semibold uppercase tracking-wider text-black transition-all duration-200 hover:bg-neutral-200 shadow-md">
-              Locate a Store
-            </a>
-          </div>
-        </div>
-      </section>
+
 
       {/* ── Camera / Editorial Pair ── */}
       <section className="section camera-section">
