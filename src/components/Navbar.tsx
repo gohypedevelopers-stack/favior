@@ -36,6 +36,23 @@ const BagIcon = () => (
   </svg>
 );
 
+const UserIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={1.5}
+    style={{ width: 18, height: 18 }}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"
+    />
+  </svg>
+);
+
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -48,18 +65,14 @@ export default function Navbar() {
       const diff = currentScrollY - lastScrollY.current;
 
       if (currentScrollY <= 20) {
-        // At top of page: reset to full double-tier navbar
         setIsVisible(true);
         setIsScrolled(false);
-      } else if (currentScrollY > 140) {
-        // Scrolled down past header height: compact state
+      } else {
         setIsScrolled(true);
 
-        if (diff > 8) {
-          // Scrolling down with threshold -> hide navbar
+        if (diff > 8 && currentScrollY > 100) {
           setIsVisible(false);
         } else if (diff < -8) {
-          // Scrolling up with threshold -> reveal compact navbar
           setIsVisible(true);
         }
       }
@@ -85,82 +98,48 @@ export default function Navbar() {
         isScrolled ? "is-scrolled" : ""
       } ${isVisible ? "nav-visible" : "nav-hidden"}`}
     >
-        {!isScrolled ? (
-          /* ── Full Double-Tier Header (Top of Page) ── */
-          <>
-            {/* Top Tier */}
-            <div className="aesop-nav-top">
-              <div className="nav-left">
-                <a href="/stores">Stores</a>
-                <a href="/support">Customer service</a>
-              </div>
+      <div className="aesop-nav-top">
+        {/* Left: Category Links */}
+        <div className="nav-left">
+          <ul className="nav-category-links">
+            <li><a href="/shakers">Shakers</a></li>
+            <li><a href="/wristbands">Wrist Wraps</a></li>
+            <li><a href="/accessories">Accessories</a></li>
+            <li><a href="/bundles">Bundles</a></li>
+          </ul>
+        </div>
 
-              <a
-                href="/"
-                className="nav-logo-centered"
-                style={{ fontSize: "40px", fontWeight: 500, letterSpacing: "0.14em" }}
-              >
-                Favior.
-              </a>
+        <a
+          href="/"
+          className="nav-logo-centered flex items-center justify-center"
+        >
+          <img
+            src="/FAVIOR BLACK LOGO.png"
+            alt="Favior Logo"
+            className="h-7 w-auto object-contain"
+          />
+        </a>
 
-              <div className="nav-right">
-                <a href="/newsletter">Email sign up</a>
-                <a href="/account">Account</a>
-                <a href="/cart" className="nav-cart-link">
-                  My cart (0)
-                </a>
-              </div>
-            </div>
-
-            {/* Bottom Tier */}
-            <div className="aesop-nav-bottom">
-              <ul className="nav-category-links">
-                <li><a href="/shakers">Shakers</a></li>
-                <li><a href="/wristbands">Wrist Wraps</a></li>
-                <li><a href="/accessories">Accessories</a></li>
-                <li><a href="/bundles">Bundles</a></li>
-                <li><a href="/about">About</a></li>
-              </ul>
-
-              <div className="nav-search-wrap">
-                <SearchIcon />
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className="nav-search-input"
-                />
-              </div>
-            </div>
-          </>
-        ) : (
-          /* ── Compact Single-Line Bar (Scrolled Up State) ── */
-          <div className="aesop-nav-compact">
-            {/* Left: Logo */}
-            <a href="/" className="nav-logo-compact">
-              Favior.
-            </a>
-
-            {/* Middle: Category Links */}
-            <ul className="nav-category-links-compact">
-              <li><a href="/shakers">Shakers</a></li>
-              <li><a href="/wristbands">Wrist Wraps</a></li>
-              <li><a href="/accessories">Accessories</a></li>
-              <li><a href="/bundles">Bundles</a></li>
-              <li><a href="/about">About</a></li>
-            </ul>
-
-            {/* Right: Search Icon + Cart Icon Badge (0) */}
-            <div className="nav-compact-right">
-              <button className="nav-icon-btn" aria-label="Search">
-                <SearchIcon />
-              </button>
-              <a href="/cart" className="nav-cart-badge" aria-label="View Cart">
-                <BagIcon />
-                <span className="cart-count">0</span>
-              </a>
-            </div>
+        {/* Right: Search, Account Icon, Cart Icon */}
+        <div className="nav-right">
+          <div className="nav-search-wrap">
+            <SearchIcon />
+            <input
+              type="text"
+              placeholder="Search..."
+              className="nav-search-input"
+            />
           </div>
-        )}
-      </header>
+          <span className="nav-divider" />
+          <a href="/account" className="nav-icon-link" aria-label="Account" title="Account">
+            <UserIcon />
+          </a>
+          <a href="/cart" className="nav-cart-badge" aria-label="View Cart" title="View Cart">
+            <BagIcon />
+            <span className="cart-count">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
   );
 }
