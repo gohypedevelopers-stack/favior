@@ -301,6 +301,16 @@ export default function Home() {
 
 
 
+      {/* ── Journal Section Marquee Banner ── */}
+      <div className="w-full bg-black py-14 sm:py-16 flex items-center overflow-hidden select-none border-y border-zinc-800">
+        <div className="animate-marquee-left flex gap-10 whitespace-nowrap text-xs sm:text-xs font-bold uppercase tracking-[0.3em] text-white py-1 leading-relaxed">
+          <span>ATHLETE STORIES &nbsp;•&nbsp; TRAINING SCIENCE &nbsp;•&nbsp; RECOVERY STRATEGIES &nbsp;•&nbsp; NUTRITION GUIDES &nbsp;•&nbsp; FAVIOR JOURNAL &nbsp;•&nbsp;</span>
+          <span>ATHLETE STORIES &nbsp;•&nbsp; TRAINING SCIENCE &nbsp;•&nbsp; RECOVERY STRATEGIES &nbsp;•&nbsp; NUTRITION GUIDES &nbsp;•&nbsp; FAVIOR JOURNAL &nbsp;•&nbsp;</span>
+          <span>ATHLETE STORIES &nbsp;•&nbsp; TRAINING SCIENCE &nbsp;•&nbsp; RECOVERY STRATEGIES &nbsp;•&nbsp; NUTRITION GUIDES &nbsp;•&nbsp; FAVIOR JOURNAL &nbsp;•&nbsp;</span>
+          <span>ATHLETE STORIES &nbsp;•&nbsp; TRAINING SCIENCE &nbsp;•&nbsp; RECOVERY STRATEGIES &nbsp;•&nbsp; NUTRITION GUIDES &nbsp;•&nbsp; FAVIOR JOURNAL &nbsp;•&nbsp;</span>
+        </div>
+      </div>
+
       {/* ── Camera / Editorial Pair ── */}
       <section className="section camera-section">
         <div className="container" style={{ marginBottom: "28px" }}>
