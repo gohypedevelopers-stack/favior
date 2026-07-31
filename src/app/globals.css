@@ -204,8 +204,8 @@ body {
 
 @media (max-width: 1023px) {
   .aesop-nav-top {
-    padding: 0 16px;
-    height: 56px;
+    padding: 0 12px;
+    height: 54px;
   }
   .aesop-nav-top .nav-left,
   .nav-desktop-left {
@@ -215,7 +215,7 @@ body {
     display: flex !important;
   }
   .aesop-nav-top .nav-right {
-    gap: 12px;
+    gap: 6px;
   }
 }
 
@@ -1720,36 +1720,42 @@ body {
 }
 
 .hero-spec-title {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 36px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #111111;
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #18181b;
   line-height: 1.15;
   margin: 0;
 }
 
 .hero-spec-subtitle {
-  color: #71717a;
-  font-size: 15px;
+  color: #a1a1aa;
+  font-size: 11px;
   font-weight: 500;
-  margin-top: 4px;
-  margin-bottom: 24px;
-}
-
-.hero-spec-price {
-  font-size: 32px;
-  font-weight: 700;
-  color: #111111;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 6px;
   margin-bottom: 20px;
 }
 
+.hero-spec-price {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #18181b;
+  margin-bottom: 18px;
+}
+
 .hero-spec-desc {
-  color: #52525b;
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 14px;
-  max-width: 480px;
+  color: #666666;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.65;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+  max-width: 440px;
 }
 
 .hero-spec-bullets {
@@ -1765,14 +1771,16 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 13px;
-  color: #52525b;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: #71717a;
 }
 
 .hero-spec-bullet-dot {
-  width: 5px;
-  height: 5px;
-  background-color: #111111;
+  width: 4px;
+  height: 4px;
+  background-color: #a1a1aa;
   border-radius: 50%;
   flex-shrink: 0;
 }
@@ -1829,6 +1837,74 @@ body {
   align-items: center;
   justify-content: center;
   transition: background-color 0.2s ease;
+}
+
+@media (max-width: 1023px) {
+  .hero-specs-panel {
+    padding-left: 0;
+    padding-right: 0;
+    align-items: center;
+    text-align: center;
+    margin-top: 0px;
+    width: 100%;
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-spec-title {
+    font-size: 18px;
+    line-height: 1.1;
+  }
+  .hero-spec-subtitle {
+    font-size: 10.5px;
+    margin-top: 1px;
+    margin-bottom: 4px;
+  }
+  .hero-spec-price {
+    font-size: 18px;
+    margin-bottom: 4px;
+  }
+  .hero-spec-desc {
+    font-size: 10px;
+    line-height: 1.35;
+    margin-bottom: 4px;
+    max-width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-spec-bullets {
+    margin-bottom: 6px;
+    gap: 3px;
+    align-items: center;
+  }
+  .hero-spec-bullet-item {
+    font-size: 10px;
+  }
+  .hero-capacity-container {
+    padding: 3px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    gap: 4px;
+  }
+  .hero-capacity-btn {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 10px;
+  }
+  .hero-action-row {
+    width: 100%;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 8px;
+    padding: 0 4px;
+  }
+  .hero-btn-buy,
+  .hero-btn-cart {
+    height: 36px;
+    font-size: 11px;
+    border-radius: 9999px;
+  }
 }
 
 .hero-btn-buy:hover {
@@ -2027,4 +2103,29 @@ body {
   .container {
     padding: 0 20px;
   }
+}
+
+/* ── Faded Dual Marquee Animations ── */
+@keyframes marqueeLeft {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marqueeRight {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee-left {
+  display: flex;
+  width: max-content;
+  animation: marqueeLeft 35s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-right {
+  display: flex;
+  width: max-content;
+  animation: marqueeRight 35s linear infinite;
+  will-change: transform;
 }
