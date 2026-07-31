@@ -9,7 +9,7 @@ const SearchIcon = () => (
     viewBox="0 0 24 24"
     stroke="currentColor"
     strokeWidth={1.5}
-    style={{ width: 16, height: 16 }}
+    className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]"
   >
     <path
       strokeLinecap="round"
@@ -26,7 +26,7 @@ const BagIcon = () => (
     viewBox="0 0 24 24"
     stroke="currentColor"
     strokeWidth={1.5}
-    style={{ width: 16, height: 16 }}
+    className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]"
   >
     <path
       strokeLinecap="round"
@@ -43,7 +43,7 @@ const UserIcon = () => (
     viewBox="0 0 24 24"
     stroke="currentColor"
     strokeWidth={1.5}
-    style={{ width: 18, height: 18 }}
+    className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]"
   >
     <path
       strokeLinecap="round"
@@ -119,7 +119,7 @@ export default function Navbar() {
             type="button"
             aria-label="Toggle navigation menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="mobile-menu-toggle flex items-center justify-center p-2 text-zinc-900 lg:hidden cursor-pointer"
+            className="mobile-menu-toggle flex items-center justify-center p-1 sm:p-2 text-zinc-900 lg:hidden cursor-pointer"
           >
             <svg
               className="w-5 h-5"
@@ -153,22 +153,22 @@ export default function Navbar() {
             <img
               src="/FAVIOR BLACK LOGO.png"
               alt="Favior Logo"
-              className="h-5 sm:h-7 w-auto object-contain"
+              className="h-4 sm:h-6 md:h-7 max-w-[95px] sm:max-w-none w-auto object-contain"
             />
           </a>
 
           {/* Right Section: Search Icon, Account Icon, Cart Icon */}
-          <div className="nav-right">
+          <div className="nav-right flex items-center justify-end gap-1.5 sm:gap-4">
             {/* Search Icon & Expandable Bar */}
-            <div className="relative flex items-center">
+            <div className="relative flex items-center justify-center">
               {searchOpen ? (
-                <div className="flex items-center gap-1 bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200 text-xs">
+                <div className="flex items-center gap-1 bg-zinc-100 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-zinc-200 text-xs">
                   <SearchIcon />
                   <input
                     type="text"
                     placeholder="Search..."
                     autoFocus
-                    className="w-24 sm:w-36 bg-transparent outline-none text-zinc-900 text-xs"
+                    className="w-20 sm:w-36 bg-transparent outline-none text-zinc-900 text-xs"
                   />
                   <button
                     type="button"
@@ -183,7 +183,7 @@ export default function Navbar() {
                   type="button"
                   aria-label="Search"
                   onClick={() => setSearchOpen(true)}
-                  className="nav-icon-link cursor-pointer p-1"
+                  className="nav-icon-link flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 cursor-pointer text-zinc-900 hover:opacity-60 transition-opacity"
                   title="Search"
                 >
                   <SearchIcon />
@@ -191,14 +191,22 @@ export default function Navbar() {
               )}
             </div>
 
-            <span className="nav-divider hidden sm:inline-block" />
-
-            <a href="/account" className="nav-icon-link hidden sm:flex" aria-label="Account" title="Account">
+            <a
+              href="/account"
+              className="nav-icon-link flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity"
+              aria-label="Account"
+              title="Account"
+            >
               <UserIcon />
             </a>
 
             {/* Cart Icon: Only show count badge when cartCount > 0 */}
-            <a href="/cart" className="nav-cart-badge" aria-label="View Cart" title="View Cart">
+            <a
+              href="/cart"
+              className="nav-cart-badge flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity relative"
+              aria-label="View Cart"
+              title="View Cart"
+            >
               <BagIcon />
               {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </a>
