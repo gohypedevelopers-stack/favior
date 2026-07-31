@@ -57,8 +57,21 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const updateScroll = () => {
@@ -100,13 +113,13 @@ export default function Navbar() {
           isScrolled ? "is-scrolled" : ""
         } ${isVisible ? "nav-visible" : "nav-hidden"}`}
       >
-        <div className="aesop-nav-top px-4 sm:px-10">
+        <div className="aesop-nav-top">
           {/* Mobile Hamburger Button */}
           <button
             type="button"
             aria-label="Toggle navigation menu"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center justify-center p-1.5 text-zinc-900 lg:hidden cursor-pointer"
+            className="mobile-menu-toggle flex items-center justify-center p-2 text-zinc-900 lg:hidden cursor-pointer"
           >
             <svg
               className="w-5 h-5"
@@ -122,8 +135,8 @@ export default function Navbar() {
             </svg>
           </button>
 
-          {/* Left: Category Links (Desktop) */}
-          <div className="nav-left hidden lg:flex">
+          {/* Left: Category Links (Desktop only) */}
+          <div className="nav-left nav-desktop-left hidden lg:flex">
             <ul className="nav-category-links">
               <li><a href="/shakers">Shakers</a></li>
               <li><a href="/wristbands">Wrist Wraps</a></li>
@@ -144,66 +157,180 @@ export default function Navbar() {
             />
           </a>
 
-          {/* Right: Search, Account Icon, Cart Icon */}
+          {/* Right Section: Search Icon, Account Icon, Cart Icon */}
           <div className="nav-right">
-            <div className="nav-search-wrap hidden md:flex">
-              <SearchIcon />
-              <input
-                type="text"
-                placeholder="Search..."
-                className="nav-search-input"
-              />
+            {/* Search Icon & Expandable Bar */}
+            <div className="relative flex items-center">
+              {searchOpen ? (
+                <div className="flex items-center gap-1 bg-zinc-100 px-2.5 py-1 rounded-full border border-zinc-200 text-xs">
+                  <SearchIcon />
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    autoFocus
+                    className="w-24 sm:w-36 bg-transparent outline-none text-zinc-900 text-xs"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setSearchOpen(false)}
+                    className="text-zinc-400 hover:text-zinc-900 ml-1 text-xs"
+                  >
+                    ✕
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  aria-label="Search"
+                  onClick={() => setSearchOpen(true)}
+                  className="nav-icon-link cursor-pointer p-1"
+                  title="Search"
+                >
+                  <SearchIcon />
+                </button>
+              )}
             </div>
-            <span className="nav-divider hidden md:block" />
+
+            <span className="nav-divider hidden sm:inline-block" />
+
             <a href="/account" className="nav-icon-link hidden sm:flex" aria-label="Account" title="Account">
               <UserIcon />
             </a>
+
+            {/* Cart Icon: Only show count badge when cartCount > 0 */}
             <a href="/cart" className="nav-cart-badge" aria-label="View Cart" title="View Cart">
               <BagIcon />
-              <span className="cart-count">0</span>
+              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
             </a>
           </div>
         </div>
       </header>
 
-      {/* Mobile Navigation Drawer */}
+      {/* Mobile Navigation Drawer - Matches exact evrydae.com inspect specs (24px 20px 32px) */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[120] bg-black/60 backdrop-blur-xs lg:hidden" onClick={() => setMobileMenuOpen(false)}>
-          <div
-            className="relative w-[280px] max-w-[80vw] h-full bg-white p-6 shadow-2xl flex flex-col justify-between"
+        <div
+          className="fixed inset-0 z-[120] bg-black/40 backdrop-blur-xs lg:hidden transition-opacity"
+          onClick={() => setMobileMenuOpen(false)}
+        >
+          <nav
+            className="absolute left-0 top-0 flex h-full w-[85vw] max-w-[380px] flex-col justify-between gap-0 bg-white shadow-2xl overflow-y-auto"
+            style={{
+              paddingTop: "24px",
+              paddingBottom: "32px",
+              paddingLeft: "20px",
+              paddingRight: "20px",
+              boxSizing: "border-box"
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             <div>
-              <div className="flex items-center justify-between pb-6 border-b border-zinc-200">
-                <img
-                  src="/FAVIOR BLACK LOGO.png"
-                  alt="Favior Logo"
-                  className="h-5 w-auto object-contain"
-                />
+              {/* Row 1: MENU Header with Close Button */}
+              <div className="flex items-center justify-between h-[54px] border-b border-zinc-100">
+                <span className="text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600">
+                  MENU
+                </span>
                 <button
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1 text-zinc-600 hover:text-black cursor-pointer"
+                  className="p-1 text-zinc-500 hover:text-black cursor-pointer transition-colors"
+                  aria-label="Close menu"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
 
-              <nav className="mt-6 flex flex-col gap-4">
-                <a href="/shakers" className="text-sm font-semibold uppercase tracking-wider text-zinc-900 hover:text-zinc-500">Shakers</a>
-                <a href="/wristbands" className="text-sm font-semibold uppercase tracking-wider text-zinc-900 hover:text-zinc-500">Wrist Wraps</a>
-                <a href="/accessories" className="text-sm font-semibold uppercase tracking-wider text-zinc-900 hover:text-zinc-500">Accessories</a>
-                <a href="/bundles" className="text-sm font-semibold uppercase tracking-wider text-zinc-900 hover:text-zinc-500">Bundles</a>
-                <a href="/account" className="text-sm font-semibold uppercase tracking-wider text-zinc-900 hover:text-zinc-500 pt-4 border-t border-zinc-100">Account</a>
-              </nav>
+              {/* Row 2: SEARCH Row */}
+              <div className="border-b border-zinc-100">
+                {searchOpen ? (
+                  <div className="flex items-center justify-between h-[54px]">
+                    <input
+                      type="text"
+                      placeholder="SEARCH..."
+                      autoFocus
+                      className="w-full bg-transparent text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-900 outline-none placeholder:text-zinc-400"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setSearchOpen(false)}
+                      className="text-zinc-400 hover:text-black text-xs font-bold p-1 ml-2 cursor-pointer"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setSearchOpen(true)}
+                    className="w-full flex items-center justify-between h-[54px] text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer"
+                  >
+                    <span>SEARCH</span>
+                    <SearchIcon />
+                  </button>
+                )}
+              </div>
+
+              {/* Category Rows matching evrydae.com layout */}
+              <div className="flex flex-col">
+                <a
+                  href="/shakers"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
+                >
+                  <span>SHAKERS</span>
+                  <svg className="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </a>
+                <a
+                  href="/wristbands"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
+                >
+                  <span>WRIST WRAPS</span>
+                  <svg className="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </a>
+                <a
+                  href="/accessories"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
+                >
+                  <span>ACCESSORIES</span>
+                  <svg className="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </a>
+                <a
+                  href="/bundles"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
+                >
+                  <span>BUNDLES</span>
+                  <svg className="w-3.5 h-3.5 text-zinc-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                  </svg>
+                </a>
+                <a
+                  href="/account"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
+                >
+                  <span>MY ACCOUNT</span>
+                  <UserIcon />
+                </a>
+              </div>
             </div>
 
-            <div className="pt-6 border-t border-zinc-200">
-              <p className="text-[10px] uppercase tracking-widest text-zinc-400">FAVIOR. ALL RIGHTS RESERVED.</p>
+            {/* Footer Brand Note */}
+            <div className="py-4 border-t border-zinc-100 mt-auto">
+              <p className="text-[10px] font-medium uppercase tracking-[0.2em] text-zinc-400 text-center">
+                FAVIOR
+              </p>
             </div>
-          </div>
+          </nav>
         </div>
       )}
     </>

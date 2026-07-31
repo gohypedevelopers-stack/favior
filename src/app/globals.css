@@ -202,6 +202,23 @@ body {
   height: 64px;
 }
 
+@media (max-width: 1023px) {
+  .aesop-nav-top {
+    padding: 0 16px;
+    height: 56px;
+  }
+  .aesop-nav-top .nav-left,
+  .nav-desktop-left {
+    display: none !important;
+  }
+  .mobile-menu-toggle {
+    display: flex !important;
+  }
+  .aesop-nav-top .nav-right {
+    gap: 12px;
+  }
+}
+
 .aesop-nav-top .nav-left,
 .aesop-nav-top .nav-right {
   display: flex;
@@ -1035,7 +1052,7 @@ body {
 }
 .split-content h2 {
   font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(26px, 3vw, 40px);
+  font-size: clamp(24px, 3vw, 40px);
   font-weight: 300;
   line-height: 1.2;
   margin-bottom: 16px;
@@ -1057,6 +1074,28 @@ body {
   margin-bottom: 16px;
 }
 .split-content.dark .split-eyebrow { color: #aaaaaa; }
+
+@media (max-width: 992px) {
+  .split-section {
+    grid-template-columns: 1fr;
+  }
+  .split-img {
+    height: 380px;
+    width: 100%;
+  }
+  .split-content {
+    padding: 44px 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .split-img {
+    height: 300px;
+  }
+  .split-content {
+    padding: 36px 20px;
+  }
+}
 
 /* ── Curate Row ── */
 .curate-section {
