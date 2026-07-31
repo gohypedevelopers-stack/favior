@@ -29,34 +29,33 @@ export default function Model3DSection() {
     offset: ["start start", "end end"]
   });
 
-  // Position X: Starts at 50% (Dead Center of viewport), shifts to 0% (Left Column) on scroll
+  // Position X: 3D model stays anchored in left column on desktop
   const modelX = useTransform(
     scrollYProgress,
-    [0.1, 0.50],
-    [isDesktop ? "50%" : "0%", "0%"]
+    [0, 1],
+    ["0%", "0%"]
   );
 
-  // Model Scale (Fixed comfortable size without extreme zoom)
+  // Model Scale
   const modelScale = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.6],
-    [1.0, 1.0, 1.0]
+    [0, 1],
+    [1.0, 1.0]
   );
 
-  // Specifications Panel Opacity: Starts at 0 (hidden), fades in to 1 on scroll
-  const detailsOpacity = useTransform(scrollYProgress, [0.35, 0.65], [0, 1]);
-  const detailsY = useTransform(scrollYProgress, [0.35, 0.65], [40, 0]);
-
-  // Camera Orbit Rotation: Smooth horizontal 360° rotation at comfortable camera distance
+  // Camera Orbit Rotation: Smooth horizontal 360° rotation
   const [cameraOrbit, setCameraOrbit] = useState("0deg 75deg 220%");
 
   useEffect(() => {
+    const zoomLevel = isDesktop ? "220%" : "170%";
+    setCameraOrbit(`0deg 75deg ${zoomLevel}`);
+
     const unsubscribe = scrollYProgress.on("change", (progress) => {
       const rotDeg = Math.round(progress * 360);
-      setCameraOrbit(`${rotDeg}deg 75deg 220%`);
+      setCameraOrbit(`${rotDeg}deg 75deg ${zoomLevel}`);
     });
     return () => unsubscribe();
-  }, [scrollYProgress]);
+  }, [scrollYProgress, isDesktop]);
 
   const handleAddToCart = () => {
     setAdded(true);
@@ -64,32 +63,59 @@ export default function Model3DSection() {
   };
 
   return (
-    <section ref={containerRef} className="relative w-full h-[250vh] bg-zinc-50 text-zinc-900">
+    <section ref={containerRef} className="relative w-full h-[300vh] bg-white text-zinc-900 z-10">
       {/* 100vh Sticky Viewport */}
-      <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-6">
+      <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-4 sm:px-6 py-4 bg-white">
 
         {/* Clean Light Studio Ambient Background */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-100/80 via-zinc-50 to-white z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-zinc-100 via-zinc-50 to-white z-0 pointer-events-none" />
 
-        {/* Faded Giant FAVIOR Watermark Text in Background */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none overflow-hidden">
-          <span className="font-heading font-extrabold text-[18vw] leading-none uppercase tracking-tighter text-zinc-900/[0.04] whitespace-nowrap">
+        {/* Top Black Marquee Bar (Moving Left - Seamless Infinite Loop) */}
+        <div className="absolute top-0 left-0 right-0 overflow-hidden pointer-events-none z-20 select-none bg-black py-6 sm:py-7 flex items-center border-b border-zinc-800 shadow-md">
+          <div className="animate-marquee-left flex gap-8 whitespace-nowrap text-xs sm:text-xs font-bold uppercase tracking-[0.25em] text-white py-2.5 leading-relaxed">
+            <span>FAVIOR PRO SERIES &nbsp;•&nbsp; LEAK-PROOF GUARANTEE &nbsp;•&nbsp; FOOD-GRADE STAINLESS STEEL &nbsp;•&nbsp; DOUBLE-WALL VACUUM &nbsp;•&nbsp;</span>
+            <span>FAVIOR PRO SERIES &nbsp;•&nbsp; LEAK-PROOF GUARANTEE &nbsp;•&nbsp; FOOD-GRADE STAINLESS STEEL &nbsp;•&nbsp; DOUBLE-WALL VACUUM &nbsp;•&nbsp;</span>
+            <span>FAVIOR PRO SERIES &nbsp;•&nbsp; LEAK-PROOF GUARANTEE &nbsp;•&nbsp; FOOD-GRADE STAINLESS STEEL &nbsp;•&nbsp; DOUBLE-WALL VACUUM &nbsp;•&nbsp;</span>
+            <span>FAVIOR PRO SERIES &nbsp;•&nbsp; LEAK-PROOF GUARANTEE &nbsp;•&nbsp; FOOD-GRADE STAINLESS STEEL &nbsp;•&nbsp; DOUBLE-WALL VACUUM &nbsp;•&nbsp;</span>
+          </div>
+        </div>
+
+        {/* Faded Giant FAVIOR Watermark Text for Desktop (Fixed Background) */}
+        <div className="hidden lg:flex absolute inset-0 items-center justify-center pointer-events-none z-0 select-none overflow-hidden">
+          <span className="font-heading font-extrabold text-[21vw] leading-none uppercase tracking-tighter text-zinc-900/[0.035] whitespace-nowrap">
             FAVIOR
           </span>
         </div>
 
-        {/* Pinned Hero Grid Content */}
-        <div className="relative w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 items-center justify-center h-full z-10">
+        {/* Bottom Black Marquee Bar (Moving Right - Seamless Infinite Loop) */}
+        <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none z-20 select-none bg-black py-6 sm:py-7 flex items-center border-t border-zinc-800 shadow-md">
+          <div className="animate-marquee-right flex gap-8 whitespace-nowrap text-xs sm:text-xs font-bold uppercase tracking-[0.25em] text-white py-2.5 leading-relaxed">
+            <span>PREMIUM PERFORMANCE &nbsp;•&nbsp; ENGINEERED FOR ATHLETES &nbsp;•&nbsp; MATTE BLACK FINISH &nbsp;•&nbsp; 300ML / 750ML &nbsp;•&nbsp;</span>
+            <span>PREMIUM PERFORMANCE &nbsp;•&nbsp; ENGINEERED FOR ATHLETES &nbsp;•&nbsp; MATTE BLACK FINISH &nbsp;•&nbsp; 300ML / 750ML &nbsp;•&nbsp;</span>
+            <span>PREMIUM PERFORMANCE &nbsp;•&nbsp; ENGINEERED FOR ATHLETES &nbsp;•&nbsp; MATTE BLACK FINISH &nbsp;•&nbsp; 300ML / 750ML &nbsp;•&nbsp;</span>
+            <span>PREMIUM PERFORMANCE &nbsp;•&nbsp; ENGINEERED FOR ATHLETES &nbsp;•&nbsp; MATTE BLACK FINISH &nbsp;•&nbsp; 300ML / 750ML &nbsp;•&nbsp;</span>
+          </div>
+        </div>
 
-          {/* 3D Shaker Model: Dead-Centered on load (50%), shifts left (0%) on scroll */}
+        {/* Pinned Hero Grid Content */}
+        <div className="relative w-full max-w-6xl mx-auto flex flex-col lg:grid lg:grid-cols-2 items-center justify-center gap-1 sm:gap-2 lg:gap-0 h-full z-10 py-2">
+
+          {/* 3D Shaker Model */}
           <motion.div
             style={{
               x: modelX,
               scale: modelScale,
             }}
-            className="col-span-1 flex flex-col items-center justify-center h-full w-full relative z-20"
+            className="col-span-1 flex flex-col items-center justify-center w-full relative z-20"
           >
-            <div className="w-full h-[520px] max-w-[520px] relative flex items-center justify-center">
+            {/* Faded Giant FAVIOR Watermark Text for Mobile (Anchored Behind Model) */}
+            <div className="lg:hidden absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none overflow-hidden">
+              <span className="font-heading font-extrabold text-[30vw] leading-none uppercase tracking-tighter text-zinc-900/[0.04] whitespace-nowrap">
+                FAVIOR
+              </span>
+            </div>
+
+            <div className="w-full h-[250px] sm:h-[340px] lg:h-[520px] max-w-[250px] sm:max-w-[340px] lg:max-w-[520px] relative flex items-center justify-center z-10">
               <Model3D
                 src="/3d model/favior.glb"
                 alt="Favior 3D Shaker"
@@ -99,10 +125,7 @@ export default function Model3DSection() {
           </motion.div>
 
           {/* Right Column: Specifications Panel */}
-          <motion.div
-            style={{ opacity: detailsOpacity, y: detailsY }}
-            className="col-span-1 hero-specs-panel"
-          >
+          <div className="col-span-1 hero-specs-panel">
             <div>
               <h2 className="hero-spec-title">
                 Favior Shaker
@@ -170,7 +193,7 @@ export default function Model3DSection() {
                 )}
               </button>
             </div>
-          </motion.div>
+          </div>
 
         </div>
 
