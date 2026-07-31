@@ -43,16 +43,20 @@ export default function Model3DSection() {
     [1.0, 1.0]
   );
 
-  // Camera Orbit Rotation: Smooth horizontal 360° rotation
-  const [cameraOrbit, setCameraOrbit] = useState("0deg 75deg 220%");
+  // Camera Orbit Rotation: Top-down lid view (20deg) tilting down to eye-level (75deg) while rotating 360deg
+  const [cameraOrbit, setCameraOrbit] = useState("0deg 20deg 220%");
 
   useEffect(() => {
     const zoomLevel = isDesktop ? "220%" : "170%";
-    setCameraOrbit(`0deg 75deg ${zoomLevel}`);
+    const currentProgress = scrollYProgress.get() || 0;
+    const currentPitch = Math.round(20 + currentProgress * 55);
+    const currentRot = Math.round(currentProgress * 360);
+    setCameraOrbit(`${currentRot}deg ${currentPitch}deg ${zoomLevel}`);
 
     const unsubscribe = scrollYProgress.on("change", (progress) => {
+      const pitchDeg = Math.round(20 + progress * 55); // 20deg (top-down) -> 75deg (eye-level)
       const rotDeg = Math.round(progress * 360);
-      setCameraOrbit(`${rotDeg}deg 75deg ${zoomLevel}`);
+      setCameraOrbit(`${rotDeg}deg ${pitchDeg}deg ${zoomLevel}`);
     });
     return () => unsubscribe();
   }, [scrollYProgress, isDesktop]);
@@ -63,7 +67,7 @@ export default function Model3DSection() {
   };
 
   return (
-    <section ref={containerRef} className="relative w-full h-[300vh] bg-white text-zinc-900 z-10">
+    <section ref={containerRef} className="relative w-full h-[400vh] bg-white text-zinc-900 z-10">
       {/* 100vh Sticky Viewport */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden px-4 sm:px-6 py-4 bg-white">
 
