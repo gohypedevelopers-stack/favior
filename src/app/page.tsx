@@ -3,6 +3,7 @@ import ProductCard, { Product } from "@/components/ProductCard";
 import ProductSlider from "@/components/ProductSlider";
 import CardGridSection from "@/components/CardGridSection";
 import Model3DSection from "@/components/Model3DSection";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import HeroVideo from "@/components/HeroVideo";
 import FaqSection from "@/components/FaqSection";
@@ -214,10 +215,7 @@ export default function Home() {
   return (
     <>
       {/* ── Announcement Bar ── */}
-      <div className="announcement-bar">
-        Free shipping on orders over ₹1,999 &nbsp;|&nbsp; New arrivals:
-        Shaker &amp; Wrist Wrap Collection now live
-      </div>
+      <AnnouncementBar />
 
       {/* ── Smart Aesop Navigation (Scroll-Up Reveal) ── */}
       <Navbar />
