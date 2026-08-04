@@ -139,7 +139,8 @@ export default function Model3DSection() {
               </p>
             </div>
 
-            <div className="hero-spec-price">
+            {/* Desktop Price */}
+            <div className="hero-spec-price hero-price-desktop">
               ₹{localVariant.price}
             </div>
 
@@ -159,19 +160,27 @@ export default function Model3DSection() {
               </ul>
             </div>
 
-            {/* Capacity Pill Selector */}
-            <div className="hero-capacity-container">
-              {SHAKER_VARIANTS.map((variant) => (
-                <button
-                  key={variant.name}
-                  onClick={() => setLocalVariant(variant)}
-                  className={`hero-capacity-btn ${
-                    localVariant.name === variant.name ? "active" : ""
-                  }`}
-                >
-                  {variant.name}
-                </button>
-              ))}
+            {/* Capacity / Quantity & Mobile Price Row */}
+            <div className="hero-capacity-price-row">
+              {/* Capacity / Quantity Pill Selector (Left) */}
+              <div className="hero-capacity-container">
+                {SHAKER_VARIANTS.map((variant) => (
+                  <button
+                    key={variant.name}
+                    onClick={() => setLocalVariant(variant)}
+                    className={`hero-capacity-btn ${
+                      localVariant.name === variant.name ? "active" : ""
+                    }`}
+                  >
+                    {variant.name}
+                  </button>
+                ))}
+              </div>
+
+              {/* Mobile Price (Right, above Add to Cart) */}
+              <div className="hero-spec-price hero-price-mobile">
+                ₹{localVariant.price}
+              </div>
             </div>
 
             {/* Action Buttons */}

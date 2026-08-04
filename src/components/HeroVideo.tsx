@@ -195,14 +195,27 @@ const heroFeatures = [
 
 export default function HeroVideo() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [prevSlide, setPrevSlide] = useState<number | null>(null);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide((current) => (current + 1) % heroSlides.length);
-    }, 5000);
+      setActiveSlide((current) => {
+        setPrevSlide(current);
+        return (current + 1) % heroSlides.length;
+      });
+    }, 2000);
 
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (prevSlide !== null) {
+      const cleanupTimer = setTimeout(() => {
+        setPrevSlide(null);
+      }, 700);
+      return () => clearTimeout(cleanupTimer);
+    }
+  }, [prevSlide, activeSlide]);
 
   return (
     <section className="hero-main-container" aria-label="Favior Hero Showcase">
@@ -214,8 +227,13 @@ export default function HeroVideo() {
           {/* Brand Heading & Text Intro */}
           <div className="hero-header-group">
             <div className="hero-brand-row">
-              <h1 className="hero-brand-title">favior</h1>
-              <span className="hero-brand-dot" />
+              <h1 className="hero-brand-logo-wrap m-0 p-0">
+                <img
+                  src="/FAVIOR BLACK LOGO.png"
+                  alt="FAVIOR"
+                  className="hero-brand-logo-img"
+                />
+              </h1>
             </div>
 
             {/* Tagline */}
@@ -266,24 +284,28 @@ export default function HeroVideo() {
           </div>
         </div>
 
-        {/* Backdrop 3D Product Image Slides */}
+        {/* Backdrop 3D Product Image Slides with Seamless Stacked Cross-Dissolve */}
         <div className="hero-stage-backdrop">
-          {heroSlides.map((slide, index) => (
-            <div
-              key={slide.name}
-              className={`hero-stage-slide ${activeSlide === index ? "active" : ""}`}
-              aria-hidden={activeSlide !== index}
-            >
-              <Image
-                src={slide.image}
-                alt={slide.alt}
-                fill
-                priority={index === 0}
-                sizes="(max-width: 1440px) 100vw, 1440px"
-                className="hero-product-img"
-              />
-            </div>
-          ))}
+          {heroSlides.map((slide, index) => {
+            const isActive = activeSlide === index;
+            const isPrev = prevSlide === index;
+            return (
+              <div
+                key={slide.name}
+                className={`hero-stage-slide ${isActive ? "active" : ""} ${isPrev ? "prev" : ""}`}
+                aria-hidden={!isActive}
+              >
+                <Image
+                  src={slide.image}
+                  alt={slide.alt}
+                  fill
+                  priority
+                  sizes="(max-width: 1440px) 100vw, 1440px"
+                  className="hero-product-img"
+                />
+              </div>
+            );
+          })}
         </div>
 
       </div>
