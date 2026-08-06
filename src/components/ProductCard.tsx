@@ -3,7 +3,7 @@
 import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, ChevronLeft, ChevronRight, ShoppingBag, Check } from "lucide-react";
+import { Heart, ChevronLeft, ChevronRight, Check } from "lucide-react";
 
 export interface Product {
   id: string;
@@ -35,7 +35,7 @@ export function ProductCard({
   onWishlistToggle,
   onQuickView,
 }: ProductCardProps) {
-  const mainImage = product.image || product.img || "/og_shaker.png";
+  const mainImage = product.image || product.img || "/favior_shaker_white.png";
   const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [mainImage];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -94,49 +94,55 @@ export function ProductCard({
     setTimeout(() => setAdded(false), 1500);
   };
 
-  const productHref = product.href || `/product/${product.id}`;
+  const slugMap: Record<string, string> = {
+    p1: "the-havane",
+    p2: "the-aube",
+    p3: "the-lumen",
+    p4: "the-brume",
+    c1: "pro-stainless-shaker",
+    c2: "elite-wrist-wraps",
+    c3: "performance-gym-kit",
+    c4: "resistance-band-set",
+    c5: "the-aube",
+    c6: "the-havane",
+  };
+
+  const productHref =
+    product.href ||
+    (slugMap[product.id]
+      ? `/products/${slugMap[product.id]}`
+      : product.id
+      ? `/products/${product.id}`
+      : "/products/heritage-oval");
 
   return (
     <article className="group relative flex w-full min-w-0 flex-col cursor-pointer select-none transition-all duration-300">
-      {/* Image Container with subtle border, soft shadow & hover lift */}
+      {/* Image Container with Rounded Corners & Soft Neutral Background matching Reference Image 2 */}
       <div
-        className="relative aspect-[1/1.32] w-full overflow-hidden rounded-xl bg-white border border-zinc-200/90 shadow-[0_2px_10px_rgba(0,0,0,0.03)] transition-all duration-300 group-hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)] group-hover:-translate-y-1 touch-pan-y"
+        className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#f5f4f0]/80 border border-neutral-200/50 shadow-2xs transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-0.5 touch-pan-y"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <Link href={productHref} className="absolute inset-0 z-0 cursor-pointer">
+        <Link href={productHref} className="absolute inset-0 z-0 cursor-pointer flex items-center justify-center p-2">
           <Image
             src={activeImage}
             alt={product.alt || product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
           />
         </Link>
 
-        {/* Exclusive Badge */}
-        {product.badge && (
-          <span
-            className="absolute left-3 top-3 z-10 inline-flex items-center justify-center rounded-md bg-black text-[9px] font-bold uppercase tracking-widest text-white shadow-xs leading-none"
-            style={{
-              padding: "5px 10px",
-              lineHeight: 1,
-            }}
-          >
-            {product.badge}
-          </span>
-        )}
-
-        {/* Circular Wishlist Button with Heart Fill animation */}
+        {/* Circular Wishlist Button matching Reference Image 2 Top-Right placement */}
         <button
           type="button"
           aria-label="Add to wishlist"
           onClick={toggleWishlist}
-          className="absolute right-3 top-3 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 backdrop-blur-xs text-zinc-900 shadow-sm border border-zinc-200/60 transition-all duration-200 hover:scale-110 hover:bg-white active:scale-95 cursor-pointer"
+          className="absolute right-3 top-3 z-10 flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-white text-neutral-800 shadow-sm border border-neutral-100 transition-all duration-200 hover:scale-110 hover:bg-white active:scale-95 cursor-pointer"
         >
           <Heart
-            className={`h-4 w-4 transition-colors duration-200 ${
-              isWishlisted ? "fill-black text-black" : "text-zinc-700 stroke-[1.6]"
+            className={`h-3.5 w-3.5 sm:h-4 sm:w-4 transition-colors duration-200 ${
+              isWishlisted ? "fill-black text-black" : "text-neutral-700 stroke-[1.6]"
             }`}
           />
         </button>
@@ -148,17 +154,17 @@ export function ProductCard({
               type="button"
               aria-label="Previous image"
               onClick={handlePreviousImage}
-              className="absolute left-2.5 top-1/2 z-20 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-zinc-900 shadow-md opacity-0 transition-all duration-200 ease-out group-hover:opacity-100 hover:scale-110 active:scale-95 sm:flex border border-zinc-200/50"
+              className="absolute left-2.5 top-1/2 z-20 hidden h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-neutral-900 shadow-md opacity-0 transition-all duration-200 ease-out group-hover:opacity-100 hover:scale-110 active:scale-95 sm:flex border border-neutral-200/50"
             >
-              <ChevronLeft className="h-4 w-4 stroke-[2]" />
+              <ChevronLeft className="h-3.5 w-3.5 stroke-[2]" />
             </button>
             <button
               type="button"
               aria-label="Next image"
               onClick={handleNextImage}
-              className="absolute right-2.5 top-1/2 z-20 hidden h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-zinc-900 shadow-md opacity-0 transition-all duration-200 ease-out group-hover:opacity-100 hover:scale-110 active:scale-95 sm:flex border border-zinc-200/50"
+              className="absolute right-2.5 top-1/2 z-20 hidden h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-neutral-900 shadow-md opacity-0 transition-all duration-200 ease-out group-hover:opacity-100 hover:scale-110 active:scale-95 sm:flex border border-neutral-200/50"
             >
-              <ChevronRight className="h-4 w-4 stroke-[2]" />
+              <ChevronRight className="h-3.5 w-3.5 stroke-[2]" />
             </button>
           </>
         )}
@@ -171,9 +177,9 @@ export function ProductCard({
             e.preventDefault();
             if (onQuickView) onQuickView(product);
           }}
-          className="absolute bottom-6 left-1/2 z-20 hidden -translate-x-1/2 translate-y-2 items-center justify-center rounded-full bg-black text-[10px] font-semibold tracking-widest text-white shadow-lg opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 hover:bg-zinc-800 sm:inline-flex uppercase leading-none"
+          className="absolute bottom-5 left-1/2 z-20 hidden -translate-x-1/2 translate-y-2 items-center justify-center rounded-full bg-black text-[9px] font-semibold tracking-widest text-white shadow-lg opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 hover:bg-neutral-800 sm:inline-flex uppercase leading-none"
           style={{
-            padding: "10px 22px",
+            padding: "8px 18px",
             lineHeight: 1,
           }}
         >
@@ -183,7 +189,7 @@ export function ProductCard({
         {/* Clean Subtle Dots */}
         {hasGalleryControls && (
           <div className="absolute bottom-2.5 inset-x-0 z-10 flex items-center justify-center">
-            <div className="flex items-center gap-1 rounded-full bg-black/15 px-2 py-1 backdrop-blur-xs">
+            <div className="flex items-center gap-1 rounded-full bg-black/15 px-2 py-0.5 backdrop-blur-xs">
               {gallery.map((_, idx) => (
                 <button
                   key={idx}
@@ -206,32 +212,32 @@ export function ProductCard({
         )}
       </div>
 
-      {/* Content Details Below Image */}
-      <div className="mt-4 flex items-center justify-between gap-2 px-1">
+      {/* Content Details Below Image matching Reference Image 2 */}
+      <div className="mt-3 flex items-center justify-between gap-2 px-1">
         <div className="min-w-0 flex-1">
           <Link href={productHref} className="block group/title">
-            <h3 className="truncate text-[11px] font-semibold uppercase tracking-wide text-zinc-900 transition-colors group-hover/title:text-zinc-600">
+            <h3 className="truncate text-[13px] sm:text-[14px] font-bold text-neutral-900 transition-colors group-hover/title:text-neutral-600">
               {product.name}
             </h3>
           </Link>
           <div className="mt-0.5 flex items-center gap-2">
-            <span className="text-[11px] font-medium uppercase tracking-wide text-zinc-500">
+            <span className="text-[11px] sm:text-[12px] font-medium text-neutral-500">
               {product.price}
             </span>
             {product.originalPrice && (
-              <span className="text-[11px] font-normal uppercase line-through text-zinc-400">
+              <span className="text-[10px] sm:text-[11px] font-normal line-through text-neutral-400">
                 {product.originalPrice}
               </span>
             )}
           </div>
         </div>
 
-        {/* Circular Add to Cart Button */}
+        {/* Shopping Bag Add to Cart Button matching Reference Image 2 */}
         <button
           type="button"
           aria-label="Add to cart"
           onClick={handleAddToCart}
-          className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-200 bg-white text-zinc-800 shadow-2xs transition-all duration-200 hover:bg-black hover:text-white hover:border-black active:scale-95 cursor-pointer ${
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded border border-neutral-300 bg-white text-neutral-800 transition-all duration-200 hover:bg-black hover:text-white hover:border-black active:scale-95 cursor-pointer ${
             added ? "bg-black text-white border-black" : ""
           }`}
         >
