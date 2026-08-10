@@ -16,7 +16,7 @@ export default function WristbandsPage() {
     <div className="min-h-screen flex flex-col bg-white">
       <AnnouncementBar />
       <Navbar />
-      <div className="pt-20 sm:pt-24 flex-1 flex flex-col">
+      <div className="pt-14 sm:pt-16 flex-1 flex flex-col">
         <CollectionPage
           initialCollection={collectionsRegistry.wristbands}
           initialCategory="wristbands"
