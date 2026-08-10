@@ -30,7 +30,7 @@ export function CardGridSection({
     <section
       className="w-full relative block overflow-hidden"
       style={{
-        backgroundColor: "#f5f5f5",
+        backgroundColor: "#ffffff",
         paddingTop: "40px",
         paddingBottom: "60px",
         paddingLeft: "16px",
