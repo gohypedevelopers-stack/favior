@@ -548,8 +548,8 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
           </div>
         </div>
 
-        {/* Action Buttons: Add To Cart & Wishlist */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+        {/* Action Buttons: Add To Cart, Wishlist & Buy It Now */}
+        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <button
               type="button"
@@ -615,15 +615,45 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
             </button>
           </div>
 
-          {/* Social Proof Sold Today Bar */}
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-              padding: "4px 0",
-            }}
-          >
+        {/* BUY IT NOW Direct Purchase Button */}
+        <button
+          type="button"
+          onClick={handleAddToCart}
+          style={{
+            width: "100%",
+            height: "48px",
+            backgroundColor: "#000000",
+            color: "#FFFFFF",
+            border: "1.5px solid #000000",
+            fontSize: "12px",
+            fontWeight: "700",
+            textTransform: "uppercase",
+            letterSpacing: "0.18em",
+            cursor: "pointer",
+            transition: "all 0.2s ease",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.08)",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = "#222222";
+            e.currentTarget.style.borderColor = "#222222";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = "#000000";
+            e.currentTarget.style.borderColor = "#000000";
+          }}
+        >
+          BUY IT NOW
+        </button>
+
+        {/* Social Proof Sold Today Bar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            padding: "4px 0",
+          }}
+        >
             <div style={{ display: "flex", alignItems: "center" }}>
               {[
                 "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=60&auto=format&fit=crop&q=80",

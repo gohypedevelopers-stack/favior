@@ -181,8 +181,21 @@ export function CollectionPage({
         onGridColsChange={setGridCols}
       />
 
-      {/* Main Grid Container matching Reference Image 2 */}
-      <div className="flex-1 max-w-6xl mx-auto px-4 sm:px-6 py-4 sm:py-6 w-full">
+      {/* Main Grid Container matching Reference Image */}
+      <div
+        style={{
+          flex: 1,
+          maxWidth: "1400px",
+          marginLeft: "auto",
+          marginRight: "auto",
+          paddingLeft: "24px",
+          paddingRight: "24px",
+          paddingTop: "24px",
+          paddingBottom: "64px",
+          width: "100%",
+          boxSizing: "border-box",
+        }}
+      >
         {filteredAndSortedProducts.length === 0 ? (
           <div className="text-center py-20 border border-neutral-200 bg-neutral-50 rounded-2xl p-8 space-y-4">
             <h3 className="text-2xl font-bold uppercase tracking-tight">No Products Found</h3>
@@ -200,11 +213,8 @@ export function CollectionPage({
         ) : (
           <div
             className={cn(
-              "grid gap-x-4 gap-y-6 sm:gap-x-6 sm:gap-y-8",
-              "grid-cols-2",
-              gridCols === 2 && "lg:grid-cols-2",
-              gridCols === 3 && "lg:grid-cols-3",
-              gridCols === 4 && "lg:grid-cols-4"
+              "grid gap-5 sm:gap-6 lg:gap-8",
+              "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
             )}
           >
             {filteredAndSortedProducts.map((product) => (
@@ -221,52 +231,206 @@ export function CollectionPage({
       </div>
 
       {/* Atelier Craftsmanship & Trust Banner */}
-      <section className="w-full bg-[#f9f9f8] border-t border-neutral-200/80 py-14 mt-12 text-black">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="flex items-start gap-4">
-              <div className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-black text-white">
-                <Truck className="h-5 w-5" />
+      <section
+        style={{
+          width: "100%",
+          backgroundColor: "#ffffff",
+          borderTop: "1px solid #e5e5e5",
+          borderBottom: "1px solid #e5e5e5",
+          paddingTop: "52px",
+          paddingBottom: "52px",
+          marginTop: "40px",
+          color: "#111111",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1400px",
+            margin: "0 auto",
+            paddingLeft: "24px",
+            paddingRight: "24px",
+            boxSizing: "border-box",
+          }}
+        >
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "32px",
+              alignItems: "flex-start",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "9999px",
+                  backgroundColor: "#000000",
+                  color: "#ffffff",
+                }}
+              >
+                <Truck style={{ width: "20px", height: "20px" }} />
               </div>
-              <div className="space-y-1">
-                <h4 className="text-[14px] font-bold uppercase tracking-tight">Fast Delivery</h4>
-                <p className="text-[12px] text-neutral-500 font-sans leading-relaxed">
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <h4
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "#111111",
+                    margin: 0,
+                  }}
+                >
+                  Fast Delivery
+                </h4>
+                <p
+                  style={{
+                    fontSize: "11px",
+                    color: "#767676",
+                    lineHeight: "1.6",
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                    margin: 0,
+                  }}
+                >
                   Complimentary express shipping on all orders across India above ₹999.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-black text-white">
-                <RefreshCcw className="h-5 w-5" />
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "9999px",
+                  backgroundColor: "#000000",
+                  color: "#ffffff",
+                }}
+              >
+                <RefreshCcw style={{ width: "20px", height: "20px" }} />
               </div>
-              <div className="space-y-1">
-                <h4 className="text-[14px] font-bold uppercase tracking-tight">14-Day Easy Exchanges</h4>
-                <p className="text-[12px] text-neutral-500 font-sans leading-relaxed">
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <h4
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "#111111",
+                    margin: 0,
+                  }}
+                >
+                  14-Day Easy Exchanges
+                </h4>
+                <p
+                  style={{
+                    fontSize: "11px",
+                    color: "#767676",
+                    lineHeight: "1.6",
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                    margin: 0,
+                  }}
+                >
                   Hassle-free replacement guarantee on size, color, or fit adjustments.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-black text-white">
-                <ShieldCheck className="h-5 w-5" />
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "9999px",
+                  backgroundColor: "#000000",
+                  color: "#ffffff",
+                }}
+              >
+                <ShieldCheck style={{ width: "20px", height: "20px" }} />
               </div>
-              <div className="space-y-1">
-                <h4 className="text-[14px] font-bold uppercase tracking-tight">Genuine Materials</h4>
-                <p className="text-[12px] text-neutral-500 font-sans leading-relaxed">
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <h4
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "#111111",
+                    margin: 0,
+                  }}
+                >
+                  Genuine Materials
+                </h4>
+                <p
+                  style={{
+                    fontSize: "11px",
+                    color: "#767676",
+                    lineHeight: "1.6",
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                    margin: 0,
+                  }}
+                >
                   Kitchen-grade 18/8 stainless steel and heavy-gauge reinforced stitching.
                 </p>
               </div>
             </div>
 
-            <div className="flex items-start gap-4">
-              <div className="h-10 w-10 shrink-0 flex items-center justify-center rounded-full bg-black text-white">
-                <Award className="h-5 w-5" />
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+              <div
+                style={{
+                  width: "44px",
+                  height: "44px",
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  borderRadius: "9999px",
+                  backgroundColor: "#000000",
+                  color: "#ffffff",
+                }}
+              >
+                <Award style={{ width: "20px", height: "20px" }} />
               </div>
-              <div className="space-y-1">
-                <h4 className="text-[14px] font-bold uppercase tracking-tight">Lifetime Build Guarantee</h4>
-                <p className="text-[12px] text-neutral-500 font-sans leading-relaxed">
+              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+                <h4
+                  style={{
+                    fontSize: "13px",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.08em",
+                    color: "#111111",
+                    margin: 0,
+                  }}
+                >
+                  Lifetime Build Guarantee
+                </h4>
+                <p
+                  style={{
+                    fontSize: "11px",
+                    color: "#767676",
+                    lineHeight: "1.6",
+                    letterSpacing: "0.04em",
+                    textTransform: "uppercase",
+                    margin: 0,
+                  }}
+                >
                   Every piece is built to withstand maximum loads and rigorous training.
                 </p>
               </div>
@@ -285,3 +449,5 @@ export function CollectionPage({
     </main>
   );
 }
+
+export default CollectionPage;

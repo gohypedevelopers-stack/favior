@@ -119,17 +119,17 @@ export function ProductCard({
     <article className="group relative flex w-full min-w-0 flex-col cursor-pointer select-none transition-all duration-300">
       {/* Image Container with Rounded Corners & Soft Neutral Background matching Reference Image 2 */}
       <div
-        className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden rounded-xl sm:rounded-2xl bg-[#f5f4f0]/80 border border-neutral-200/50 shadow-2xs transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-0.5 touch-pan-y"
+        className="relative aspect-[3/4] sm:aspect-[4/5] w-full overflow-hidden rounded-2xl sm:rounded-[20px] bg-white border border-neutral-200/80 shadow-2xs transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-0.5 touch-pan-y"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
-        <Link href={productHref} className="absolute inset-0 z-0 cursor-pointer flex items-center justify-center p-2">
+        <Link href={productHref} className="absolute inset-0 z-0 cursor-pointer">
           <Image
             src={activeImage}
             alt={product.alt || product.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-            className="object-contain p-2 transition-transform duration-700 ease-out group-hover:scale-105"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
           />
         </Link>
 

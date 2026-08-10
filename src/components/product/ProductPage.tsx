@@ -29,7 +29,7 @@ export function ProductPage({ product }: { product: ProductDetail }) {
           maxWidth: "1280px",
           marginLeft: "auto",
           marginRight: "auto",
-          padding: "16px 32px 56px 32px",
+          padding: "24px 20px 56px 20px",
           boxSizing: "border-box",
         }}
       >
@@ -37,7 +37,7 @@ export function ProductPage({ product }: { product: ProductDetail }) {
         <nav
           aria-label="Breadcrumb"
           style={{
-            marginBottom: "16px",
+            marginBottom: "20px",
           }}
         >
           <ol
