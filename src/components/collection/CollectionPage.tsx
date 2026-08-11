@@ -228,43 +228,46 @@ export function CollectionPage({
             ))}
           </div>
         )}
-      </div>
-
-      {/* Atelier Craftsmanship & Trust Banner */}
+      </div>      {/* Atelier Craftsmanship & Trust Banner */}
       <section
         style={{
           width: "100%",
           backgroundColor: "#ffffff",
           borderTop: "1px solid #e5e5e5",
           borderBottom: "1px solid #e5e5e5",
-          paddingTop: "52px",
-          paddingBottom: "52px",
+          paddingTop: "32px",
+          paddingBottom: "32px",
           marginTop: "40px",
+          marginBottom: "32px",
           color: "#111111",
+          boxSizing: "border-box",
         }}
       >
         <div
           style={{
             maxWidth: "1400px",
             margin: "0 auto",
-            paddingLeft: "24px",
-            paddingRight: "24px",
+            paddingLeft: "20px",
+            paddingRight: "20px",
             boxSizing: "border-box",
+            width: "100%",
           }}
         >
           <div
+            className="grid grid-cols-2 lg:grid-cols-4"
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: "32px",
+              gap: "16px",
               alignItems: "flex-start",
+              width: "100%",
+              boxSizing: "border-box",
             }}
           >
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+            {/* Item 1: Fast Delivery */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <div
                 style={{
-                  width: "44px",
-                  height: "44px",
+                  width: "28px",
+                  height: "28px",
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -274,16 +277,17 @@ export function CollectionPage({
                   color: "#ffffff",
                 }}
               >
-                <Truck style={{ width: "20px", height: "20px" }} />
+                <Truck style={{ width: "14px", height: "14px" }} />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                 <h4
                   style={{
-                    fontSize: "13px",
+                    fontSize: "10.5px",
                     fontWeight: 800,
                     textTransform: "uppercase",
-                    letterSpacing: "0.08em",
+                    letterSpacing: "0.12em",
                     color: "#111111",
+                    lineHeight: "1.2",
                     margin: 0,
                   }}
                 >
@@ -291,24 +295,25 @@ export function CollectionPage({
                 </h4>
                 <p
                   style={{
-                    fontSize: "11px",
+                    fontSize: "8.5px",
                     color: "#767676",
-                    lineHeight: "1.6",
+                    lineHeight: "1.4",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
                     margin: 0,
                   }}
                 >
-                  Complimentary express shipping on all orders across India above ₹999.
+                  Complimentary express shipping over ₹999.
                 </p>
               </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+            {/* Item 2: 14-Day Easy Exchanges */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <div
                 style={{
-                  width: "44px",
-                  height: "44px",
+                  width: "28px",
+                  height: "28px",
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -318,41 +323,43 @@ export function CollectionPage({
                   color: "#ffffff",
                 }}
               >
-                <RefreshCcw style={{ width: "20px", height: "20px" }} />
+                <RefreshCcw style={{ width: "14px", height: "14px" }} />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                 <h4
                   style={{
-                    fontSize: "13px",
+                    fontSize: "10.5px",
                     fontWeight: 800,
                     textTransform: "uppercase",
-                    letterSpacing: "0.08em",
+                    letterSpacing: "0.12em",
                     color: "#111111",
+                    lineHeight: "1.2",
                     margin: 0,
                   }}
                 >
-                  14-Day Easy Exchanges
+                  14-Day Exchanges
                 </h4>
                 <p
                   style={{
-                    fontSize: "11px",
+                    fontSize: "8.5px",
                     color: "#767676",
-                    lineHeight: "1.6",
+                    lineHeight: "1.4",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
                     margin: 0,
                   }}
                 >
-                  Hassle-free replacement guarantee on size, color, or fit adjustments.
+                  Hassle-free replacement guarantee.
                 </p>
               </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+            {/* Item 3: Genuine Materials */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <div
                 style={{
-                  width: "44px",
-                  height: "44px",
+                  width: "28px",
+                  height: "28px",
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -362,16 +369,17 @@ export function CollectionPage({
                   color: "#ffffff",
                 }}
               >
-                <ShieldCheck style={{ width: "20px", height: "20px" }} />
+                <ShieldCheck style={{ width: "14px", height: "14px" }} />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                 <h4
                   style={{
-                    fontSize: "13px",
+                    fontSize: "10.5px",
                     fontWeight: 800,
                     textTransform: "uppercase",
-                    letterSpacing: "0.08em",
+                    letterSpacing: "0.12em",
                     color: "#111111",
+                    lineHeight: "1.2",
                     margin: 0,
                   }}
                 >
@@ -379,24 +387,25 @@ export function CollectionPage({
                 </h4>
                 <p
                   style={{
-                    fontSize: "11px",
+                    fontSize: "8.5px",
                     color: "#767676",
-                    lineHeight: "1.6",
+                    lineHeight: "1.4",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
                     margin: 0,
                   }}
                 >
-                  Kitchen-grade 18/8 stainless steel and heavy-gauge reinforced stitching.
+                  Surgical 18/8 steel & heavy stitching.
                 </p>
               </div>
             </div>
 
-            <div style={{ display: "flex", alignItems: "flex-start", gap: "16px" }}>
+            {/* Item 4: Lifetime Build Guarantee */}
+            <div style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
               <div
                 style={{
-                  width: "44px",
-                  height: "44px",
+                  width: "28px",
+                  height: "28px",
                   flexShrink: 0,
                   display: "flex",
                   alignItems: "center",
@@ -406,32 +415,33 @@ export function CollectionPage({
                   color: "#ffffff",
                 }}
               >
-                <Award style={{ width: "20px", height: "20px" }} />
+                <Award style={{ width: "14px", height: "14px" }} />
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                 <h4
                   style={{
-                    fontSize: "13px",
+                    fontSize: "10.5px",
                     fontWeight: 800,
                     textTransform: "uppercase",
-                    letterSpacing: "0.08em",
+                    letterSpacing: "0.12em",
                     color: "#111111",
+                    lineHeight: "1.2",
                     margin: 0,
                   }}
                 >
-                  Lifetime Build Guarantee
+                  Build Guarantee
                 </h4>
                 <p
                   style={{
-                    fontSize: "11px",
+                    fontSize: "8.5px",
                     color: "#767676",
-                    lineHeight: "1.6",
+                    lineHeight: "1.4",
                     letterSpacing: "0.04em",
                     textTransform: "uppercase",
                     margin: 0,
                   }}
                 >
-                  Every piece is built to withstand maximum loads and rigorous training.
+                  Built to withstand heavy training.
                 </p>
               </div>
             </div>
