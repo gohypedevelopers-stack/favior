@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, ChevronLeft, ChevronRight, Check } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export interface Product {
   id: string;
@@ -35,6 +36,7 @@ export function ProductCard({
   onWishlistToggle,
   onQuickView,
 }: ProductCardProps) {
+  const { addToCart } = useCart();
   const mainImage = product.image || product.img || "/favior_shaker_white.png";
   const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [mainImage];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -89,6 +91,14 @@ export function ProductCard({
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: mainImage,
+      slug: product.id,
+    });
     onAddToCart?.(product);
     setAdded(true);
     setTimeout(() => setAdded(false), 1500);
