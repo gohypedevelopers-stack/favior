@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Montserrat } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import { CartProvider } from "@/context/CartContext";
+import { SideCartDrawer } from "@/components/cart/SideCartDrawer";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geist.variable} ${montserrat.variable} h-full`}>
       <body className="min-h-full flex flex-col">
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        <CartProvider>
+          <SmoothScrollProvider>{children}</SmoothScrollProvider>
+          <SideCartDrawer />
+        </CartProvider>
       </body>
     </html>
   );
 }
+
