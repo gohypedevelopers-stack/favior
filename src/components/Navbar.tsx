@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import { useCart } from "@/context/CartContext";
 
 const SearchIcon = () => (
   <svg
@@ -58,7 +59,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
+  const { totalItems, openCart } = useCart();
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
@@ -158,7 +159,7 @@ export default function Navbar() {
           </a>
 
           {/* Right Section: Search Icon, Account Icon, Cart Icon */}
-          <div className="nav-right flex items-center justify-end gap-1.5 sm:gap-4">
+          <div className="nav-right flex items-center justify-end gap-0.5 sm:gap-4">
             {/* Search Icon & Expandable Bar */}
             <div className="relative flex items-center justify-center">
               {searchOpen ? (
@@ -200,16 +201,17 @@ export default function Navbar() {
               <UserIcon />
             </a>
 
-            {/* Cart Icon: Only show count badge when cartCount > 0 */}
-            <a
-              href="/cart"
-              className="nav-cart-badge flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity relative"
+            {/* Cart Icon: Only show count badge when totalItems > 0 */}
+            <button
+              type="button"
+              onClick={openCart}
+              className="nav-cart-badge flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity relative cursor-pointer"
               aria-label="View Cart"
               title="View Cart"
             >
               <BagIcon />
-              {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
-            </a>
+              {totalItems > 0 && <span className="cart-count">{totalItems}</span>}
+            </button>
           </div>
         </div>
       </header>
@@ -329,6 +331,17 @@ export default function Navbar() {
                   <span>MY ACCOUNT</span>
                   <UserIcon />
                 </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openCart();
+                  }}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer w-full text-left"
+                >
+                  <span>MY BAG ({totalItems})</span>
+                  <BagIcon />
+                </button>
               </div>
             </div>
 
