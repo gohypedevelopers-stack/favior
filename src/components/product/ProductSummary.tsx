@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from "react";
 import { Heart, RefreshCcw, ShieldCheck, Truck } from "lucide-react";
 import type { ProductDetail } from "./productData";
+import { useCart } from "@/context/CartContext";
 
 export function ProductSummary({ product }: { product: ProductDetail }) {
+  const { addToCart } = useCart();
   const [selectedColor, setSelectedColor] = useState(
     product.colors && product.colors.length > 0 ? product.colors[0].name : product.colorName
   );
@@ -43,14 +45,20 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
   }, [product.slug]);
 
   const handleAddToCart = () => {
-    if (cartState !== "idle") return;
-    setCartState("adding");
+    addToCart({
+      id: product.id || product.slug,
+      slug: product.slug,
+      name: product.title,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.gallery && product.gallery[0] ? product.gallery[0].src : "/favior_shaker_white.png",
+      color: selectedColor,
+      size: selectedSize,
+    });
+    setCartState("added");
     setTimeout(() => {
-      setCartState("added");
-      setTimeout(() => {
-        setCartState("idle");
-      }, 2000);
-    }, 600);
+      setCartState("idle");
+    }, 2000);
   };
 
   const handleApplyCoupon = (code: string) => {
