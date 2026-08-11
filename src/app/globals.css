@@ -35,6 +35,107 @@
   --accent-amber: #000000;
 }
 
+/* ── Aesop / Favior Luxury Navbar & Cart Badge Styles ── */
+.aesop-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  transition: transform 300ms ease, background-color 300ms ease, box-shadow 300ms ease;
+}
+
+.aesop-header.nav-hidden {
+  transform: translateY(-100%);
+}
+
+.aesop-header.nav-visible {
+  transform: translateY(0);
+}
+
+.aesop-header.is-scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.aesop-nav-top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .aesop-nav-top {
+    height: 64px;
+    padding: 0 24px;
+  }
+}
+
+.nav-category-links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-category-links a {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #111111;
+  text-decoration: none;
+  transition: opacity 200ms ease;
+}
+
+.nav-category-links a:hover {
+  opacity: 0.6;
+}
+
+.nav-logo-centered {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-cart-badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-count {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
