@@ -6,6 +6,7 @@ import Link from "next/link";
 import { X, Star, Heart, Check, ArrowRight } from "lucide-react";
 import type { CatalogItem } from "./collectionData";
 import { cn } from "@/lib/utils";
+import { useCart } from "@/context/CartContext";
 
 interface QuickViewModalProps {
   product: CatalogItem | null;
@@ -20,6 +21,7 @@ export function QuickViewModal({
   onClose,
   onAddToCart,
 }: QuickViewModalProps) {
+  const { addToCart } = useCart();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("Standard");
@@ -103,9 +105,21 @@ export function QuickViewModal({
       : `/products/${product.id}`;
 
   const handleAdd = () => {
-    onAddToCart?.(product);
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1600);
+    if (product) {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        image: product.image,
+        color: selectedColor,
+        size: selectedSize,
+        slug: product.id,
+      });
+      onAddToCart?.(product);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 1600);
+    }
   };
 
   return (
