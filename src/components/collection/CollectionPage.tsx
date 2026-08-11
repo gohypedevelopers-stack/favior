@@ -7,6 +7,7 @@ import { ProductCard, type Product } from "@/components/ProductCard";
 import { CollectionHeader } from "./CollectionHeader";
 import { CollectionToolbar } from "./CollectionToolbar";
 import { QuickViewModal } from "./QuickViewModal";
+import { useCart } from "@/context/CartContext";
 import {
   catalogProducts,
   collectionsRegistry,
@@ -38,6 +39,7 @@ export function CollectionPage({
   initialCategory = "all",
 }: CollectionPageProps) {
   const router = useRouter();
+  const { addToCart } = useCart();
 
   const [activeCategory, setActiveCategory] = useState<CollectionCategoryKey>(
     initialCategory || initialCollection?.categoryKey || "all"
@@ -132,8 +134,14 @@ export function CollectionPage({
   }, [activeCategory, filterState]);
 
   const handleAddToCart = (product: Product) => {
-    setToastMessage(`Added "${product.name}" to cart.`);
-    setTimeout(() => setToastMessage(null), 3000);
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      image: product.image || product.img || "/favior_shaker_white.png",
+      slug: product.id,
+    });
   };
 
   const handleWishlistToggle = (product: Product, isWishlisted: boolean) => {
