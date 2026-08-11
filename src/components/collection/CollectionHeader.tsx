@@ -19,15 +19,17 @@ export function CollectionHeader({
       style={{
         width: "100%",
         backgroundColor: "#ffffff",
-        paddingTop: "20px",
-        paddingBottom: "16px",
+        paddingTop: "32px",
+        paddingBottom: "28px",
+        paddingLeft: "24px",
+        paddingRight: "24px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         textAlign: "center",
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        boxSizing: "border-box",
       }}
     >
       <div
@@ -35,8 +37,6 @@ export function CollectionHeader({
           width: "100%",
           maxWidth: "1240px",
           margin: "0 auto",
-          paddingLeft: "24px",
-          paddingRight: "24px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -49,23 +49,10 @@ export function CollectionHeader({
         <nav
           aria-label="Breadcrumb"
           style={{
-            marginBottom: "6px",
+            marginBottom: "8px",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
-              fontSize: "11px",
-              textTransform: "uppercase",
-              letterSpacing: "0.22em",
-              color: "#767676",
-              fontWeight: 500,
-            }}
-          >
+          <div className="flex flex-wrap items-center justify-center gap-[6px] text-[9.5px] sm:text-[11px] uppercase tracking-[0.22em] text-[#767676] font-medium">
             {collection.breadcrumb.map((crumb, idx) => {
               const isLast = idx === collection.breadcrumb.length - 1;
               return (
@@ -91,16 +78,16 @@ export function CollectionHeader({
 
         {/* Hero Title */}
         <h1
+          className="text-[22px] sm:text-[28px] md:text-[36px]"
           style={{
-            fontSize: "38px",
             fontWeight: 900,
             textTransform: "uppercase",
             letterSpacing: "0.04em",
             color: "#111111",
             maxWidth: "900px",
-            marginTop: "6px",
-            marginBottom: "10px",
-            lineHeight: "1.1",
+            marginTop: "8px",
+            marginBottom: "12px",
+            lineHeight: "1.15",
             textAlign: "center",
           }}
         >
@@ -109,15 +96,19 @@ export function CollectionHeader({
 
         {/* Hero Description */}
         <p
+          className="text-[11px] sm:text-[12px]"
           style={{
-            fontSize: "12px",
+            fontSize: "11px",
             fontWeight: 500,
             textTransform: "uppercase",
             letterSpacing: "0.18em",
             color: "#767676",
             lineHeight: "1.6",
             maxWidth: "650px",
-            margin: "4px auto 0 auto",
+            marginTop: "6px",
+            marginBottom: "0px",
+            marginLeft: "auto",
+            marginRight: "auto",
             textAlign: "center",
           }}
         >
