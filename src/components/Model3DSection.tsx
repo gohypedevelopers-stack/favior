@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import Model3D from "@/components/Model3D";
 import { Check } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 const SHAKER_VARIANTS = [
   { name: "300ml", price: "599", desc: "Pro Series • 300ml" },
@@ -11,6 +12,7 @@ const SHAKER_VARIANTS = [
 ];
 
 export default function Model3DSection() {
+  const { addToCart } = useCart();
   const [localVariant, setLocalVariant] = useState(SHAKER_VARIANTS[0]); // Default 300ml
   const [added, setAdded] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -62,6 +64,15 @@ export default function Model3DSection() {
   }, [scrollYProgress, isDesktop]);
 
   const handleAddToCart = () => {
+    addToCart({
+      id: `favior-pro-shaker-${localVariant.name}`,
+      name: `Favior Pro Shaker (${localVariant.name})`,
+      price: `₹${localVariant.price}`,
+      image: "/favior_shaker_white.png",
+      color: "Gloss White",
+      size: localVariant.name,
+      slug: "the-havane",
+    });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
