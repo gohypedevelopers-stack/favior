@@ -1,19 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-heading: 'Playfair Display', Georgia, serif;
-  --font-sans: 'Inter', sans-serif;
+  --font-heading: var(--font-sans), 'Montserrat', sans-serif;
+  --font-sans: var(--font-sans), 'Montserrat', sans-serif;
   --color-brand-gold: #C9B07A;
   --color-brand-dark: #0F0F10;
 }
 
 .font-heading {
-  font-family: 'Playfair Display', Georgia, serif;
+  font-family: var(--font-sans), 'Montserrat', sans-serif;
 }
 
 .font-sans {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans), 'Montserrat', sans-serif;
 }
 
 :root {
@@ -169,8 +168,8 @@ html {
 body {
   background: var(--bg-cream);
   color: var(--text-dark);
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
+  font-family: var(--font-sans), 'Montserrat', sans-serif;
+  font-weight: 400;
   letter-spacing: 0.03em;
   -webkit-font-smoothing: antialiased;
 }
@@ -256,7 +255,7 @@ body {
 .hero-switcher__content h1 {
   max-width: 650px;
   margin: 18px 0;
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans), 'Montserrat', sans-serif;
   font-size: clamp(52px, 7vw, 104px);
   font-weight: 400;
   line-height: .94;
@@ -1032,7 +1031,7 @@ body {
 }
 
 /* ── Utility ── */
-.serif { font-family: 'Playfair Display', serif; }
+.serif { font-family: var(--font-sans), 'Montserrat', sans-serif; }
 
 /* ── Announcement Bar ── */
 .announcement-bar {
@@ -1458,7 +1457,7 @@ body {
   margin-bottom: 16px;
 }
 .hero-title {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans), 'Montserrat', sans-serif;
   font-size: clamp(38px, 5vw, 68px);
   font-weight: 400;
   line-height: 1.12;
@@ -1536,7 +1535,7 @@ body {
 
 .section-label,
 .section-heading {
-  font-family: 'Playfair Display', serif;
+  font-family: var(--font-sans), 'Montserrat', sans-serif;
   font-size: clamp(32px, 3.2vw, 44px);
   font-weight: 400;
   color: var(--text-dark);

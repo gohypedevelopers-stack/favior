@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Montserrat } from "next/font/google";
+import { Montserrat } from "next/font/google";
 import "./globals.css";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import { CartProvider } from "@/context/CartContext";
+import { WishlistProvider } from "@/context/WishlistContext";
 import { SideCartDrawer } from "@/components/cart/SideCartDrawer";
-
-const geist = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import { SideWishlistDrawer } from "@/components/wishlist/SideWishlistDrawer";
 
 const montserrat = Montserrat({
-  variable: "--font-montserrat",
+  variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
@@ -28,12 +25,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${montserrat.variable} h-full`}>
+    <html lang="en" className={`${montserrat.variable} h-full`}>
       <body className="min-h-full flex flex-col">
-        <CartProvider>
-          <SmoothScrollProvider>{children}</SmoothScrollProvider>
-          <SideCartDrawer />
-        </CartProvider>
+        <WishlistProvider>
+          <CartProvider>
+            <SmoothScrollProvider>{children}</SmoothScrollProvider>
+            <SideCartDrawer />
+            <SideWishlistDrawer />
+          </CartProvider>
+        </WishlistProvider>
       </body>
     </html>
   );

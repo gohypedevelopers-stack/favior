@@ -7,6 +7,7 @@ import { X, Star, Heart, Check, ArrowRight } from "lucide-react";
 import type { CatalogItem } from "./collectionData";
 import { cn } from "@/lib/utils";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 interface QuickViewModalProps {
   product: CatalogItem | null;
@@ -22,11 +23,11 @@ export function QuickViewModal({
   onAddToCart,
 }: QuickViewModalProps) {
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("Standard");
   const [added, setAdded] = useState(false);
-  const [isWishlisted, setIsWishlisted] = useState(false);
 
   // Dynamic size options based on product category & name
   const getProductSizes = (item: CatalogItem): string[] => {
@@ -296,19 +297,58 @@ export function QuickViewModal({
             </button>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "12px", width: "100%", minWidth: 0 }}>
-              {/* Category */}
-              <span
-                style={{
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.14em",
-                  color: "#a3a3a3",
-                  display: "block",
-                }}
-              >
-                FAVIOR ATELIER
-              </span>
+              {/* Category and Wishlist Icon */}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <span
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.14em",
+                    color: "#a3a3a3",
+                    display: "block",
+                  }}
+                >
+                  FAVIOR ATELIER
+                </span>
+                
+                <button
+                  type="button"
+                  aria-label="Toggle wishlist"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const isWishlisted = isInWishlist(product.id);
+                    if (isWishlisted) {
+                      removeFromWishlist(product.id);
+                    } else {
+                      addToWishlist({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        originalPrice: product.originalPrice,
+                        image: product.image,
+                        color: selectedColor,
+                        size: selectedSize,
+                        slug: product.id,
+                      });
+                    }
+                  }}
+                  style={{
+                    background: "transparent",
+                    border: 0,
+                    cursor: "pointer",
+                    padding: "2px",
+                    color: isInWishlist(product?.id || "") ? "#000000" : "#a3a3a3",
+                  }}
+                >
+                  <Heart
+                    className="h-5 w-5"
+                    style={{
+                      fill: isInWishlist(product?.id || "") ? "currentColor" : "none",
+                    }}
+                  />
+                </button>
+              </div>
 
               {/* Product Title */}
               <h2

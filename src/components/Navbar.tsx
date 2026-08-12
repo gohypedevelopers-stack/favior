@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 const SearchIcon = () => (
   <svg
@@ -16,6 +17,23 @@ const SearchIcon = () => (
       strokeLinecap="round"
       strokeLinejoin="round"
       d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+    />
+  </svg>
+);
+
+const HeartIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    strokeWidth={1.5}
+    className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
     />
   </svg>
 );
@@ -60,6 +78,7 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const { totalItems, openCart } = useCart();
+  const { totalItems: wishlistTotalItems, openWishlist } = useWishlist();
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
@@ -201,6 +220,18 @@ export default function Navbar() {
               <UserIcon />
             </a>
 
+            {/* Wishlist Icon */}
+            <button
+              type="button"
+              onClick={openWishlist}
+              className="nav-cart-badge flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity relative cursor-pointer"
+              aria-label="View Wishlist"
+              title="View Wishlist"
+            >
+              <HeartIcon />
+              {wishlistTotalItems > 0 && <span className="cart-count">{wishlistTotalItems}</span>}
+            </button>
+
             {/* Cart Icon: Only show count badge when totalItems > 0 */}
             <button
               type="button"
@@ -331,6 +362,17 @@ export default function Navbar() {
                   <span>MY ACCOUNT</span>
                   <UserIcon />
                 </a>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    openWishlist();
+                  }}
+                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors cursor-pointer w-full text-left"
+                >
+                  <span>WISHLIST ({wishlistTotalItems})</span>
+                  <HeartIcon />
+                </button>
                 <button
                   type="button"
                   onClick={() => {

@@ -53,8 +53,6 @@ const Model3D = forwardRef<HTMLElement, Model3DProps>(({ src, poster, alt, loadi
         shadow-intensity="1"
         exposure="1.1"
         environment-image="neutral"
-        ar
-        ar-modes="webxr scene-viewer quick-look"
         style={{ width: "100%", height: "100%", background: "transparent", "--poster-color": "transparent" } as React.CSSProperties}
         onLoad={() => setIsLoading(false)}
       >

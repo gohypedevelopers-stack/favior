@@ -4,9 +4,11 @@ import React, { useState, useEffect } from "react";
 import { Heart, RefreshCcw, ShieldCheck, Truck } from "lucide-react";
 import type { ProductDetail } from "./productData";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export function ProductSummary({ product }: { product: ProductDetail }) {
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const [selectedColor, setSelectedColor] = useState(
     product.colors && product.colors.length > 0 ? product.colors[0].name : product.colorName
   );
@@ -16,7 +18,7 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
   const [reviewsCount, setReviewsCount] = useState(128);
   const [averageRating, setAverageRating] = useState(Number(product.rating) || 4.8);
   const [cartState, setCartState] = useState<"idle" | "adding" | "added">("idle");
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const isWishlisted = isInWishlist(product.id || product.slug);
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [activeAccordion, setActiveAccordion] = useState<"care" | "shipping" | null>(null);
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
@@ -597,7 +599,23 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
 
             <button
               type="button"
-              onClick={() => setIsWishlisted(!isWishlisted)}
+              onClick={() => {
+                const nextState = !isWishlisted;
+                if (nextState) {
+                  addToWishlist({
+                    id: product.id || product.slug,
+                    slug: product.slug,
+                    name: product.title,
+                    price: product.price,
+                    originalPrice: product.originalPrice,
+                    image: product.gallery && product.gallery[0] ? product.gallery[0].src : "/favior_shaker_white.png",
+                    color: selectedColor,
+                    size: selectedSize,
+                  });
+                } else {
+                  removeFromWishlist(product.id || product.slug);
+                }
+              }}
               title={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
               style={{
                 width: "48px",
@@ -938,7 +956,7 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
                 <div>
                   <p
                     style={{
-                      fontSize: "9px",
+                      fontSize: "11px",
                       fontWeight: "700",
                       textTransform: "uppercase",
                       letterSpacing: "0.08em",
@@ -950,10 +968,11 @@ export function ProductSummary({ product }: { product: ProductDetail }) {
                   </p>
                   <p
                     style={{
-                      fontSize: "8px",
+                      fontSize: "9.5px",
+                      fontWeight: "500",
                       textTransform: "uppercase",
                       letterSpacing: "0.06em",
-                      color: "rgba(0,0,0,0.5)",
+                      color: "#525252",
                       margin: "2px 0 0 0",
                     }}
                   >

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Heart, ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
 
 export interface Product {
   id: string;
@@ -37,10 +38,11 @@ export function ProductCard({
   onQuickView,
 }: ProductCardProps) {
   const { addToCart } = useCart();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const mainImage = product.image || product.img || "/favior_shaker_white.png";
   const gallery = product.gallery && product.gallery.length > 0 ? product.gallery : [mainImage];
   const [activeImageIndex, setActiveImageIndex] = useState(0);
-  const [isWishlisted, setIsWishlisted] = useState(false);
+  const isWishlisted = isInWishlist(product.id);
   const [added, setAdded] = useState(false);
 
   // Touch Swipe Gesture State
@@ -84,7 +86,18 @@ export function ProductCard({
     e.stopPropagation();
     e.preventDefault();
     const nextState = !isWishlisted;
-    setIsWishlisted(nextState);
+    if (nextState) {
+      addToWishlist({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.originalPrice,
+        image: mainImage,
+        slug: product.id,
+      });
+    } else {
+      removeFromWishlist(product.id);
+    }
     onWishlistToggle?.(product, nextState);
   };
 
@@ -179,7 +192,7 @@ export function ProductCard({
           </>
         )}
 
-        {/* Slide-Up Quick View Button */}
+        {/* Slide-Up Quick View Button — always visible on mobile, hover-reveal on desktop */}
         <button
           type="button"
           onClick={(e) => {
@@ -187,9 +200,10 @@ export function ProductCard({
             e.preventDefault();
             if (onQuickView) onQuickView(product);
           }}
-          className="absolute bottom-5 left-1/2 z-20 hidden -translate-x-1/2 translate-y-2 items-center justify-center rounded-full bg-black text-[9px] font-semibold tracking-widest text-white shadow-lg opacity-0 transition-all duration-300 ease-out group-hover:opacity-100 group-hover:translate-y-0 hover:bg-neutral-800 sm:inline-flex uppercase leading-none"
+          className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center rounded-full bg-black/80 text-[8px] font-semibold tracking-widest text-white shadow-md uppercase leading-none
+            sm:bottom-5 sm:translate-y-2 sm:bg-black sm:text-[9px] sm:opacity-0 sm:shadow-lg sm:transition-all sm:duration-300 sm:ease-out sm:group-hover:opacity-100 sm:group-hover:translate-y-0 sm:hover:bg-neutral-800"
           style={{
-            padding: "8px 18px",
+            padding: "7px 14px",
             lineHeight: 1,
           }}
         >
