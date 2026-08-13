@@ -192,7 +192,7 @@ export function ProductCard({
           </>
         )}
 
-        {/* Slide-Up Quick View Button — always visible on mobile, hover-reveal on desktop */}
+        {/* Slide-Up Quick View Button — hidden on mobile, hover-reveal on desktop */}
         <button
           type="button"
           onClick={(e) => {
@@ -200,7 +200,7 @@ export function ProductCard({
             e.preventDefault();
             if (onQuickView) onQuickView(product);
           }}
-          className="absolute bottom-3 left-1/2 z-20 flex -translate-x-1/2 items-center justify-center rounded-full bg-black/80 text-[8px] font-semibold tracking-widest text-white shadow-md uppercase leading-none
+          className="absolute bottom-3 left-1/2 z-20 hidden sm:flex -translate-x-1/2 items-center justify-center rounded-full bg-black/80 text-[8px] font-semibold tracking-widest text-white shadow-md uppercase leading-none
             sm:bottom-5 sm:translate-y-2 sm:bg-black sm:text-[9px] sm:opacity-0 sm:shadow-lg sm:transition-all sm:duration-300 sm:ease-out sm:group-hover:opacity-100 sm:group-hover:translate-y-0 sm:hover:bg-neutral-800"
           style={{
             padding: "7px 14px",
