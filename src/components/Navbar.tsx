@@ -180,7 +180,7 @@ export default function Navbar() {
           {/* Right Section: Search Icon, Account Icon, Cart Icon */}
           <div className="nav-right flex items-center justify-end gap-0.5 sm:gap-4">
             {/* Search Icon & Expandable Bar */}
-            <div className="relative flex items-center justify-center">
+            <div className="relative hidden sm:flex items-center justify-center">
               {searchOpen ? (
                 <div className="flex items-center gap-1 bg-zinc-100 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-zinc-200 text-xs">
                   <SearchIcon />
@@ -213,7 +213,7 @@ export default function Navbar() {
 
             <a
               href="/account"
-              className="nav-icon-link flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity"
+              className="nav-icon-link hidden sm:flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity"
               aria-label="Account"
               title="Account"
             >
