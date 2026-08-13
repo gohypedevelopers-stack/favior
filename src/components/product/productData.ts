@@ -245,3 +245,12 @@ export const featuredProduct: ProductDetail = {
   ],
 }
 
+export function getAllProductDetails() {
+  return [featuredProduct];
+}
+
+export function getProductBySlug(slug: string) {
+  // In a real app, this would find the product by slug.
+  // For now, return the featured product as a fallback.
+  return featuredProduct;
+}
