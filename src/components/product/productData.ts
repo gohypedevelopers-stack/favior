@@ -60,6 +60,8 @@ export type ProductDetail = {
   gallery: ProductImage[]
   deliveryPerks: DeliveryPerk[]
   completeLook: ProductImage[]
+  highlights?: any[]
+  specifications?: string[]
 }
 
 export const trendingProducts: ProductCard[] = [

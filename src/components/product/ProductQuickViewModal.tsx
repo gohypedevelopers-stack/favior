@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ChevronLeft, ChevronRight, Heart, Star, X } from "lucide-react"
 import { useEffect, useState } from "react"
-import type { ButtonHTMLAttributes } from "react"
+import type { ButtonHTMLAttributes, SyntheticEvent } from "react"
 
 import {
   Dialog,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import type { ProductDetail } from "@/components/product/productData"
-import { addToCart, buyNow } from "@/lib/cart"
+import { useCart } from "@/context/CartContext"
 
 type ProductQuickViewModalProps = {
   open: boolean
@@ -98,6 +98,7 @@ export function ProductQuickViewModal({
   gallery,
   initialImageIndex = 0,
 }: ProductQuickViewModalProps) {
+  const { addToCart, openCart } = useCart()
   const [activeImageIndex, setActiveImageIndex] = useState(() =>
     Math.min(initialImageIndex, Math.max(gallery.length - 1, 0))
   )
@@ -112,9 +113,7 @@ export function ProductQuickViewModal({
     setCartState("adding")
     addToCart({
       id: product.slug,
-      merchandiseId: product.merchandiseId,
       image: product.gallery[0]?.src || "/images/products/product1.png",
-      alt: product.gallery[0]?.alt || product.title,
       title: product.title,
       size: selectedSize || "XS",
       price: product.price,
@@ -136,15 +135,14 @@ export function ProductQuickViewModal({
     }, 3000)
 
     try {
-      await buyNow({
+      addToCart({
         id: product.slug,
-        merchandiseId: product.merchandiseId,
         image: product.gallery[0]?.src || "/images/products/product1.png",
-        alt: product.gallery[0]?.alt || product.title,
         title: product.title,
         size: selectedSize || "XS",
         price: product.price,
       })
+      openCart()
     } catch (err) {
       console.error("Buy Now error:", err)
       clearTimeout(timer)
@@ -218,8 +216,8 @@ export function ProductQuickViewModal({
       <DialogContent
         showCloseButton={false}
         overlayClassName="bg-black/80 backdrop-blur-[1px]"
-        onClick={(event) => event.stopPropagation()}
-        onPointerDown={(event) => event.stopPropagation()}
+        onClick={(event: SyntheticEvent) => event.stopPropagation()}
+        onPointerDown={(event: SyntheticEvent) => event.stopPropagation()}
         className="!gap-0 !w-[min(96vw,956px)] !max-w-none max-h-[calc(100dvh-1.25rem)] overflow-hidden rounded-none border-0 bg-white p-0 text-black ring-0 sm:max-w-none"
       >
         <DialogTitle className="sr-only">{product.title} quick view</DialogTitle>
