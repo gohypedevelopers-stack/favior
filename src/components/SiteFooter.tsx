@@ -48,9 +48,8 @@ export default function SiteFooter() {
         <div className="sf-col">
           <h4 className="sf-col-heading">COMPANY</h4>
           <ul className="sf-col-list">
-            <li><Link href="/about">OUR STORY</Link></li>
+            <li><Link href="/story">OUR STORY</Link></li>
             <li><Link href="/sustainability">MATERIALS &amp; CRAFT</Link></li>
-            <li><Link href="/faq">SIZE GUIDE</Link></li>
           </ul>
         </div>
 
