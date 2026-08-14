@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { authClient } from "@/lib/auth-client";
 
 const SearchIcon = () => (
   <svg
@@ -79,6 +80,7 @@ export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const { totalItems, openCart } = useCart();
   const { totalItems: wishlistTotalItems, openWishlist } = useWishlist();
+  const { data, isPending } = authClient.useSession();
   const lastScrollY = useRef(0);
   const ticking = useRef(false);
 
@@ -211,14 +213,23 @@ export default function Navbar() {
               )}
             </div>
 
-            <a
-              href="/account"
-              className="nav-icon-link hidden sm:flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity"
-              aria-label="Account"
-              title="Account"
-            >
-              <UserIcon />
-            </a>
+            {data?.user ? (
+              <div className="hidden sm:flex items-center gap-3">
+                <a href={data.user.role === "ADMIN" ? "/dashboard" : "/"} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-900 hover:opacity-60">{data.user.name}</a>
+                <button onClick={() => {
+                  authClient.signOut().then(() => window.location.reload());
+                }} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-500 hover:text-zinc-900">Logout</button>
+              </div>
+            ) : (
+              <a
+                href="/login"
+                className="nav-icon-link hidden sm:flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity"
+                aria-label="Account"
+                title="Account"
+              >
+                <UserIcon />
+              </a>
+            )}
 
             {/* Wishlist Icon */}
             <button
@@ -354,14 +365,36 @@ export default function Navbar() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                   </svg>
                 </a>
-                <a
-                  href="/account"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
-                >
-                  <span>MY ACCOUNT</span>
-                  <UserIcon />
-                </a>
+                {data?.user ? (
+                  <div className="flex flex-col border-b border-zinc-100">
+                    <a
+                      href={data.user.role === "ADMIN" ? "/dashboard" : "/"}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between h-[54px] text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-900 hover:text-black transition-colors"
+                    >
+                      <span>HI, {data.user.name}</span>
+                      <UserIcon />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        authClient.signOut().then(() => window.location.reload());
+                      }}
+                      className="flex items-center justify-between h-[54px] border-t border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-500 hover:text-zinc-900 transition-colors w-full text-left"
+                    >
+                      <span>LOGOUT</span>
+                    </button>
+                  </div>
+                ) : (
+                  <a
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between h-[54px] border-b border-zinc-100 text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-600 hover:text-zinc-900 transition-colors"
+                  >
+                    <span>MY ACCOUNT</span>
+                    <UserIcon />
+                  </a>
+                )}
                 <button
                   type="button"
                   onClick={() => {
