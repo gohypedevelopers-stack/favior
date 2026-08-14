@@ -8,6 +8,8 @@ import {
   getCollectionBySlug,
   collectionCategories,
 } from "@/components/collection/collectionData";
+import { db } from "@/lib/db";
+import type { CatalogItem } from "@/components/collection/collectionData";
 import type { CollectionCategoryKey } from "@/types/collection";
 
 interface PageProps {
@@ -36,6 +38,25 @@ export default async function CollectionDetailPage({ params }: PageProps) {
   const collection = getCollectionBySlug(slug);
   const categoryKey = (collection.categoryKey || "all") as CollectionCategoryKey;
 
+  const dbProducts = await db.product.findMany({
+    orderBy: { createdAt: "desc" }
+  });
+
+  const products: CatalogItem[] = dbProducts.map((p: any) => ({
+    id: p.id,
+    name: p.name,
+    desc: p.description,
+    price: `RS. ${p.price}`,
+    originalPrice: p.oldPrice ? `RS. ${p.oldPrice}` : undefined,
+    numericPrice: parseFloat(p.price.replace(/,/g, "")),
+    rating: p.rating,
+    reviews: parseInt(p.reviewsCount, 10) || 0,
+    img: p.mainImage,
+    gallery: [p.mainImage],
+    category: categoryKey, // For now, assign to current category or handle filtering in CollectionPage
+    inStock: p.quantity > 0,
+  }));
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <AnnouncementBar />
@@ -44,6 +65,7 @@ export default async function CollectionDetailPage({ params }: PageProps) {
         <CollectionPage
           initialCollection={collection}
           initialCategory={categoryKey}
+          products={products}
         />
       </div>
       <FaqSection />
