@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import HeroVideo from "@/components/HeroVideo";
 import FaqSection from "@/components/FaqSection";
 import SiteFooter from "@/components/SiteFooter";
+import { db } from "@/lib/db";
 
 /* ─────────────────────────────────────
    SVG Icon Helpers
@@ -78,140 +79,29 @@ const ArrowRightIcon = () => (
 );
 
 /* ─────────────────────────────────────
-   Data
-───────────────────────────────────── */
-const products: Product[] = [
-  {
-    id: "p1",
-    name: "The Havane",
-    desc: "600ml double-wall insulated shaker with leak-proof lid and precision mixing grid.",
-    price: "RS. 16,500",
-    originalPrice: "RS. 19,999",
-    rating: 4.9,
-    reviews: 128,
-    img: "/favior_shaker_white.png",
-    gallery: ["/favior_shaker_white.png", "/favior_wristwrap_white.png", "/favior_kit_white.png"],
-  },
-  {
-    id: "p2",
-    name: "The Aube",
-    desc: "Heavy-duty 18\" wrist wraps with thumb loop, built for maximum support during heavy lifts.",
-    price: "RS. 15,900",
-    originalPrice: "RS. 18,299",
-    rating: 4.8,
-    reviews: 94,
-    img: "/favior_wristwrap_white.png",
-    gallery: ["/favior_wristwrap_white.png", "/favior_shaker_white.png", "/favior_bands_white.png"],
-  },
-  {
-    id: "p3",
-    name: "The Lumen",
-    desc: "Complete training essentials bundle: shaker, wraps, resistance bands & chalk bag.",
-    price: "RS. 18,500",
-    originalPrice: "RS. 21,999",
-    rating: 5.0,
-    reviews: 210,
-    img: "/favior_kit_white.png",
-    gallery: ["/favior_kit_white.png", "/favior_shaker_white.png", "/favior_wristwrap_white.png"],
-  },
-  {
-    id: "p4",
-    name: "The Brume",
-    desc: "Set of 5 heavy-duty latex bands with varying resistance levels and travel pouch.",
-    price: "RS. 15,900",
-    originalPrice: "RS. 17,599",
-    rating: 4.9,
-    reviews: 76,
-    img: "/favior_bands_white.png",
-    gallery: ["/favior_bands_white.png", "/favior_wristwrap_white.png", "/favior_shaker_white.png"],
-  },
-];
-
-const curateItems: Product[] = [
-  {
-    id: "c1",
-    name: "Pro Stainless Shaker — Onyx",
-    desc: "600ml double-wall insulated shaker with leak-proof lid and precision mixing grid.",
-    price: "₹1,499",
-    originalPrice: "₹1,999",
-    rating: 4.9,
-    reviews: 128,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/favior_shaker_white.png",
-    gallery: ["/favior_shaker_white.png", "/favior_wristwrap_white.png", "/favior_kit_white.png"],
-    swatches: ["#1a1a1a", "#555555", "#000000"],
-  },
-  {
-    id: "c2",
-    name: "Elite Wrist Wraps — Black",
-    desc: "Heavy-duty 18\" wrist wraps with thumb loop, built for maximum support during heavy lifts.",
-    price: "₹999",
-    originalPrice: "₹1,299",
-    rating: 4.8,
-    reviews: 94,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/favior_wristwrap_white.png",
-    gallery: ["/favior_wristwrap_white.png", "/favior_shaker_white.png", "/favior_bands_white.png"],
-    swatches: ["#111111", "#444444"],
-  },
-  {
-    id: "c3",
-    name: "Performance Gym Kit",
-    desc: "Complete training essentials bundle: shaker, wraps, resistance bands & chalk bag.",
-    price: "₹2,999",
-    originalPrice: "₹3,999",
-    rating: 5.0,
-    reviews: 210,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/favior_kit_white.png",
-    gallery: ["/favior_kit_white.png", "/favior_shaker_white.png", "/favior_wristwrap_white.png"],
-    swatches: ["#111111", "#333333"],
-  },
-  {
-    id: "c4",
-    name: "Resistance Band Set",
-    desc: "Set of 5 heavy-duty latex bands with varying resistance levels and travel pouch.",
-    price: "₹1,199",
-    originalPrice: "₹1,599",
-    rating: 4.9,
-    reviews: 76,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/favior_bands_white.png",
-    gallery: ["/favior_bands_white.png", "/favior_wristwrap_white.png", "/favior_shaker_white.png"],
-    swatches: ["#333333", "#111111"],
-  },
-  {
-    id: "c5",
-    name: "Heavy-Duty Lifting Straps",
-    desc: "Neoprene padded cotton lifting straps for superior grip security on heavy rows.",
-    price: "₹799",
-    originalPrice: "₹999",
-    rating: 4.8,
-    reviews: 64,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/favior_wristwrap_white.png",
-    gallery: ["/favior_wristwrap_white.png", "/favior_shaker_white.png"],
-    swatches: ["#111111"],
-  },
-  {
-    id: "c6",
-    name: "Insulated Gym Flask — 1L",
-    desc: "1000ml double-wall thermal flask that keeps water ice-cold for 24 hours.",
-    price: "₹1,899",
-    originalPrice: "₹2,499",
-    rating: 4.9,
-    reviews: 115,
-    badge: "ONLINE EXCLUSIVE",
-    img: "/favior_shaker_white.png",
-    gallery: ["/favior_shaker_white.png", "/favior_kit_white.png"],
-    swatches: ["#1a1a1a"],
-  },
-];
-
-/* ─────────────────────────────────────
    Page Component
 ───────────────────────────────────── */
-export default function Home() {
+export default async function Home() {
+  const dbProducts = await db.product.findMany({
+    take: 12,
+    orderBy: { createdAt: "desc" }
+  });
+
+  const allProducts: Product[] = dbProducts.map((p: any) => ({
+    id: p.id,
+    name: p.name,
+    desc: p.description,
+    price: `RS. ${p.price}`,
+    originalPrice: p.oldPrice ? `RS. ${p.oldPrice}` : undefined,
+    rating: p.rating,
+    reviews: parseInt(p.reviewsCount, 10) || 0,
+    img: p.mainImage,
+    gallery: [p.mainImage]
+  }));
+
+  const products = allProducts.slice(0, 4);
+  const curateItems = allProducts.slice(4, 8);
+
   return (
     <>
       {/* ── Announcement Bar ── */}
