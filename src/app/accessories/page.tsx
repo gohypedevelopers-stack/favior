@@ -5,13 +5,18 @@ import { CollectionPage } from "@/components/collection/CollectionPage";
 import FaqSection from "@/components/FaqSection";
 import SiteFooter from "@/components/SiteFooter";
 import { collectionsRegistry } from "@/components/collection/collectionData";
+import { db } from "@/lib/db";
+import type { CatalogItem } from "@/components/collection/collectionData";
 
 export const metadata: Metadata = {
   title: "Training Accessories & Bands — Favior",
   description: "Natural latex resistance bands, pure chalk grip sets, and workout accessories.",
 };
 
-export default function AccessoriesPage() {
+export default async function AccessoriesPage() {
+  const dbProducts = await db.product.findMany({ orderBy: { createdAt: "desc" } });
+  const products: CatalogItem[] = dbProducts.map((p: any) => ({ id: p.id, name: p.name, desc: p.description, price: `RS. ${p.price}`, originalPrice: p.oldPrice ? `RS. ${p.oldPrice}` : undefined, numericPrice: parseFloat(p.price.replace(/,/g, "")), rating: p.rating, reviews: parseInt(p.reviewsCount, 10) || 0, img: p.mainImage, gallery: [p.mainImage], category: "accessories", inStock: p.quantity > 0 }));
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <AnnouncementBar />
@@ -20,6 +25,7 @@ export default function AccessoriesPage() {
         <CollectionPage
           initialCollection={collectionsRegistry.accessories}
           initialCategory="accessories"
+          products={products}
         />
       </div>
       <FaqSection />
