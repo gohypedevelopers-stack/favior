@@ -12,7 +12,7 @@ function Table({ className, ...props }: React.ComponentProps<"table">) {
     >
       <table
         data-slot="table"
-        className={cn("w-full caption-bottom text-sm", className)}
+        style={{ width: "100%", fontSize: "0.875rem", borderCollapse: "collapse" }} className={cn("", className)}
         {...props}
       />
     </div>
@@ -23,7 +23,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
   return (
     <thead
       data-slot="table-header"
-      className={cn("[&_tr]:border-b", className)}
+      style={{ borderBottom: "1px solid rgb(0,0,0,0.1)" }} className={cn("", className)}
       {...props}
     />
   )

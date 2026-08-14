@@ -1,6 +1,5 @@
-import * as React from "react"
+import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
-import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 
@@ -13,7 +12,7 @@ const buttonVariants = cva(
         outline:
           "border-border bg-background shadow-xs hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
@@ -45,20 +44,12 @@ function Button({
   className,
   variant = "default",
   size = "default",
-  asChild = false,
   ...props
-}: React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants> & {
-    asChild?: boolean
-  }) {
-  const Comp = asChild ? Slot.Root : "button"
-
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
   return (
-    <Comp
+    <ButtonPrimitive
       data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, className }))}
+      style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", borderRadius: "0.375rem", fontWeight: "500", fontSize: "0.875rem", height: "2.5rem", paddingLeft: "1rem", paddingRight: "1rem", backgroundColor: variant === "outline" ? "transparent" : variant === "ghost" ? "transparent" : variant === "destructive" ? "rgb(220,38,38)" : "rgb(26,26,26)", color: variant === "outline" ? "black" : variant === "ghost" ? "black" : "white", borderWidth: variant === "outline" ? "1px" : "0", borderColor: "rgb(0,0,0,0.2)" }} className={cn("", className)}
       {...props}
     />
   )

@@ -9,7 +9,6 @@ import { CollectionToolbar } from "./CollectionToolbar";
 import { QuickViewModal } from "./QuickViewModal";
 import { useCart } from "@/context/CartContext";
 import {
-  catalogProducts,
   collectionsRegistry,
   type CatalogItem,
 } from "./collectionData";
@@ -23,6 +22,7 @@ import { cn } from "@/lib/utils";
 interface CollectionPageProps {
   initialCollection?: CollectionDetail;
   initialCategory?: CollectionCategoryKey;
+  products: CatalogItem[];
 }
 
 const DEFAULT_FILTER_STATE: FilterState = {
@@ -37,6 +37,7 @@ const DEFAULT_FILTER_STATE: FilterState = {
 export function CollectionPage({
   initialCollection,
   initialCategory = "all",
+  products,
 }: CollectionPageProps) {
   const router = useRouter();
   const { addToCart } = useCart();
@@ -82,7 +83,7 @@ export function CollectionPage({
   };
 
   const filteredAndSortedProducts = useMemo(() => {
-    let result = catalogProducts.slice();
+    let result = products.slice();
 
     // 1. Category Filter
     if (activeCategory !== "all") {
@@ -154,7 +155,7 @@ export function CollectionPage({
   };
 
   const handleQuickView = (product: Product) => {
-    const found = catalogProducts.find((p) => p.id === product.id) || (product as CatalogItem);
+    const found = products.find((p) => p.id === product.id) || (product as CatalogItem);
     setQuickViewProduct(found);
     setIsQuickViewOpen(true);
   };
@@ -173,12 +174,12 @@ export function CollectionPage({
         collection={currentCollection}
         activeCategory={activeCategory}
         onSelectCategory={handleCategoryChange}
-        totalProductsCount={catalogProducts.length}
+        totalProductsCount={products.length}
       />
 
       {/* Floating Filter, Search & Category Switcher Toolbar */}
       <CollectionToolbar
-        totalCount={catalogProducts.length}
+        totalCount={products.length}
         filteredCount={filteredAndSortedProducts.length}
         activeCategory={activeCategory}
         onSelectCategory={handleCategoryChange}

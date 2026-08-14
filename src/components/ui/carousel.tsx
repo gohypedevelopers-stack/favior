@@ -58,6 +58,14 @@ function Carousel({
     },
     plugins
   )
+  const [canScrollPrev, setCanScrollPrev] = React.useState(false)
+  const [canScrollNext, setCanScrollNext] = React.useState(false)
+
+  const onSelect = React.useCallback((api: CarouselApi) => {
+    if (!api) return
+    setCanScrollPrev(api.canScrollPrev())
+    setCanScrollNext(api.canScrollNext())
+  }, [])
 
   const scrollPrev = React.useCallback(() => {
     api?.scrollPrev()
@@ -80,39 +88,21 @@ function Carousel({
     [scrollPrev, scrollNext]
   )
 
-  const subscribe = React.useCallback(
-    (onStoreChange: () => void) => {
-      if (!api) {
-        return () => {}
-      }
-
-      api.on("reInit", onStoreChange)
-      api.on("select", onStoreChange)
-
-      return () => {
-        api.off("reInit", onStoreChange)
-        api.off("select", onStoreChange)
-      }
-    },
-    [api]
-  )
-
-  const canScrollPrev = React.useSyncExternalStore(
-    subscribe,
-    () => api?.canScrollPrev() ?? false,
-    () => false
-  )
-
-  const canScrollNext = React.useSyncExternalStore(
-    subscribe,
-    () => api?.canScrollNext() ?? false,
-    () => false
-  )
-
   React.useEffect(() => {
     if (!api || !setApi) return
     setApi(api)
   }, [api, setApi])
+
+  React.useEffect(() => {
+    if (!api) return
+    onSelect(api)
+    api.on("reInit", onSelect)
+    api.on("select", onSelect)
+
+    return () => {
+      api?.off("select", onSelect)
+    }
+  }, [api, onSelect])
 
   return (
     <CarouselContext.Provider
@@ -197,7 +187,7 @@ function CarouselPrevious({
       className={cn(
         "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
+          ? "inset-y-0 -left-12 my-auto"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -227,7 +217,7 @@ function CarouselNext({
       className={cn(
         "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
+          ? "inset-y-0 -right-12 my-auto"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}

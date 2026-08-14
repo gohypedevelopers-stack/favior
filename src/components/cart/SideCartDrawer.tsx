@@ -78,12 +78,37 @@ export function SideCartDrawer() {
     };
   }, [isOpen, closeCart]);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     setIsCheckingOut(true);
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          items: cart,
+          total: subtotal,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Order placed successfully!");
+        // We could clear the cart here or redirect to /dashboard
+        window.location.href = "/dashboard";
+      } else {
+        if (response.status === 401) {
+          alert("You must be logged in to checkout.");
+          window.location.href = "/login?redirect=/";
+        } else {
+          alert(data.error || "Failed to place order.");
+        }
+      }
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    } finally {
       setIsCheckingOut(false);
-      alert("Redirecting to secure Shopify Checkout...");
-    }, 800);
+    }
   };
 
   return (
