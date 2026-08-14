@@ -14,9 +14,9 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Favior — Luxury Skincare & Body Care",
+  title: "Favior — Luxury Gym Gear & Fitness Accessories",
   description:
-    "Discover Favior's curated collection of premium skincare, body care and home fragrance. Crafted with purpose-led botanical ingredients.",
+    "Discover Favior's curated collection of premium gym gear, wrist wraps, shakers, and fitness accessories designed for peak performance.",
 };
 
 export default function RootLayout({
