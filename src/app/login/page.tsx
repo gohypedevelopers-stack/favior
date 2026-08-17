@@ -90,10 +90,7 @@ function AuthForm() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Login failed");
 
-        let targetUrl = "/orders";
-        if (data.user?.role === "ADMIN") {
-          targetUrl = "/dashboard";
-        }
+        let targetUrl = data.redirectTo || "/orders";
 
         const redirectParam = searchParams.get("redirectTo");
         if (redirectParam) {
