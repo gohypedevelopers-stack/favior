@@ -215,7 +215,7 @@ export default function Navbar() {
 
             {data?.user ? (
               <div className="hidden sm:flex items-center gap-3">
-                <a href={data.user.role === "ADMIN" ? "/dashboard" : "/"} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-900 hover:opacity-60">{data.user.name}</a>
+                <a href={data.user.role === "ADMIN" ? "/dashboard" : "/profile"} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-900 hover:opacity-60">{data.user.name}</a>
                 <button onClick={() => {
                   authClient.signOut().then(() => window.location.reload());
                 }} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-500 hover:text-zinc-900">Logout</button>
@@ -368,7 +368,7 @@ export default function Navbar() {
                 {data?.user ? (
                   <div className="flex flex-col border-b border-zinc-100">
                     <a
-                      href={data.user.role === "ADMIN" ? "/dashboard" : "/"}
+                      href={data.user.role === "ADMIN" ? "/dashboard" : "/profile"}
                       onClick={() => setMobileMenuOpen(false)}
                       className="flex items-center justify-between h-[54px] text-[13px] font-medium uppercase tracking-[0.08em] text-zinc-900 hover:text-black transition-colors"
                     >

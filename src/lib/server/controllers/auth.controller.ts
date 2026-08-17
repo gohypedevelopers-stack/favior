@@ -32,7 +32,7 @@ export async function loginUser(email: string, password: string) {
   const { token } = await sessionsDal.createSession(user.id);
 
   // Compute redirect server-side (frontend never sees the role)
-  const redirectTo = user.role === "ADMIN" ? "/dashboard" : "/";
+  const redirectTo = user.role === "ADMIN" ? "/dashboard" : "/profile";
 
   return {
     token,
@@ -75,7 +75,7 @@ export async function registerUser(
 
   return {
     token,
-    redirectTo: "/",
+    redirectTo: "/profile",
     user: {
       id: newUser.id,
       name: newUser.name,
