@@ -11,6 +11,8 @@ import SiteFooter from "@/components/SiteFooter";
 import { db } from "@/lib/db";
 import { listActiveBanners } from "@/lib/server/controllers/banners.controller";
 
+export const dynamic = 'force-dynamic';
+
 /* ─────────────────────────────────────
    SVG Icon Helpers
 ───────────────────────────────────── */
