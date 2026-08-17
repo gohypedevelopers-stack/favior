@@ -8,6 +8,9 @@ import { collectionsRegistry } from "@/components/collection/collectionData";
 import { db } from "@/lib/db";
 import type { CatalogItem } from "@/components/collection/collectionData";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: "Training Accessories & Bands — Favior",
   description: "Natural latex resistance bands, pure chalk grip sets, and workout accessories.",

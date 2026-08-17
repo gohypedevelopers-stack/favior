@@ -9,6 +9,7 @@ import HeroVideo from "@/components/HeroVideo";
 import FaqSection from "@/components/FaqSection";
 import SiteFooter from "@/components/SiteFooter";
 import { db } from "@/lib/db";
+import { listActiveBanners } from "@/lib/server/controllers/banners.controller";
 
 /* ─────────────────────────────────────
    SVG Icon Helpers
@@ -82,10 +83,13 @@ const ArrowRightIcon = () => (
    Page Component
 ───────────────────────────────────── */
 export default async function Home() {
-  const dbProducts = await db.product.findMany({
-    take: 12,
-    orderBy: { createdAt: "desc" }
-  });
+  const [dbProducts, activeBanners] = await Promise.all([
+    db.product.findMany({
+      take: 12,
+      orderBy: { createdAt: "desc" }
+    }),
+    listActiveBanners()
+  ]);
 
   const allProducts: Product[] = dbProducts.map((p: any) => ({
     id: p.id,
@@ -111,7 +115,7 @@ export default async function Home() {
       <Navbar />
 
       {/* ── Hero Video Section ── */}
-      <HeroVideo />
+      <HeroVideo banners={activeBanners} />
 
       {/* ── 3D Interactive Model Section ── */}
       <div id="section-3d-model">

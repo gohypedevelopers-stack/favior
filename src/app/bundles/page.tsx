@@ -8,6 +8,9 @@ import { collectionsRegistry } from "@/components/collection/collectionData";
 import { db } from "@/lib/db";
 import type { CatalogItem } from "@/components/collection/collectionData";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: "Atelier Bundles & Kits — Favior",
   description: "Curated performance bundles including shakers, wraps, and chalk sets.",

@@ -8,6 +8,9 @@ import { collectionsRegistry } from "@/components/collection/collectionData";
 import { db } from "@/lib/db";
 import type { CatalogItem } from "@/components/collection/collectionData";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: "Wrist Wraps & Lifting Straps — Favior",
   description: "Heavy-duty 18-inch wrist wraps and padded cotton lifting straps.",

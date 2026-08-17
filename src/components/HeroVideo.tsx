@@ -3,6 +3,18 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
+export type HeroBannerProps = {
+  id: string;
+  title: string;
+  caption: string | null;
+  src: string;
+  mobileSrc?: string | null;
+  alt: string;
+  cta: string | null;
+  linkUrl: string | null;
+};
+
+
 const heroSlides = [
   {
     name: "Black",
@@ -193,17 +205,30 @@ const heroFeatures = [
   },
 ];
 
-export default function HeroVideo() {
+export default function HeroVideo({ banners = [] }: { banners?: HeroBannerProps[] }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [prevSlide, setPrevSlide] = useState<number | null>(null);
+
+  // Fallback to defaults if no banners are provided from DB
+  const slides = banners.length > 0 ? banners : heroSlides.map(s => ({
+    id: s.name,
+    title: "PREMIUM FITNESS ESSENTIALS",
+    caption: "Crafted for performance. Designed for you.",
+    src: s.image,
+    alt: s.alt,
+    cta: "EXPLORE COLLECTION",
+    linkUrl: "/all-products"
+  }));
+
+  const activeBanner = slides[activeSlide] || slides[0];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlide((current) => {
         setPrevSlide(current);
-        return (current + 1) % heroSlides.length;
+        return (current + 1) % slides.length;
       });
-    }, 2000);
+    }, 4000); // Increased interval to 4000ms for better readability of text
 
     return () => clearInterval(timer);
   }, []);
@@ -237,11 +262,11 @@ export default function HeroVideo() {
             </div>
 
             {/* Tagline */}
-            <p className="hero-tagline">PREMIUM FITNESS ESSENTIALS</p>
+            <p className="hero-tagline">{activeBanner.title}</p>
 
             {/* Subheadline */}
             <p className="hero-subheadline">
-              Crafted for performance. Designed for you.
+              {activeBanner.caption}
             </p>
           </div>
 
@@ -270,10 +295,10 @@ export default function HeroVideo() {
           {/* CTA Action Buttons */}
           <div className="hero-cta-group">
             <a
-              href="/all-products"
+              href={activeBanner.linkUrl || "/all-products"}
               className="hero-btn-explore"
             >
-              EXPLORE COLLECTION
+              {activeBanner.cta || "EXPLORE COLLECTION"}
             </a>
             <a
               href="#section-3d-model"
@@ -286,18 +311,18 @@ export default function HeroVideo() {
 
         {/* Backdrop 3D Product Image Slides with Seamless Stacked Cross-Dissolve */}
         <div className="hero-stage-backdrop">
-          {heroSlides.map((slide, index) => {
+          {slides.map((slide, index) => {
             const isActive = activeSlide === index;
             const isPrev = prevSlide === index;
             return (
               <div
-                key={slide.name}
+                key={slide.id}
                 className={`hero-stage-slide ${isActive ? "active" : ""} ${isPrev ? "prev" : ""}`}
                 aria-hidden={!isActive}
               >
                 <Image
-                  src={slide.image}
-                  alt={slide.alt}
+                  src={slide.src}
+                  alt={slide.alt || slide.title || "Hero Slide"}
                   fill
                   priority
                   sizes="(max-width: 1440px) 100vw, 1440px"

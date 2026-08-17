@@ -8,6 +8,9 @@ import { collectionsRegistry } from "@/components/collection/collectionData";
 import { db } from "@/lib/db";
 import type { CatalogItem } from "@/components/collection/collectionData";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = {
   title: "Stainless Steel Shakers — Favior",
   description: "Double-wall insulated stainless steel shaker bottles and thermal flasks.",

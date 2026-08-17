@@ -12,6 +12,9 @@ import { db } from "@/lib/db";
 import type { CatalogItem } from "@/components/collection/collectionData";
 import type { CollectionCategoryKey } from "@/types/collection";
 
+export const dynamic = 'force-dynamic';
+
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

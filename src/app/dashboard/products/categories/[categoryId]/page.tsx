@@ -8,6 +8,9 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import * as categoriesController from "@/lib/server/controllers/categories.controller"
 import * as productsController from "@/lib/server/controllers/products.controller"
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = { title: "Edit category | Favior Admin" }
 
 export default async function EditCategoryPage({ params }: PageProps<"/dashboard/products/categories/[categoryId]">) {

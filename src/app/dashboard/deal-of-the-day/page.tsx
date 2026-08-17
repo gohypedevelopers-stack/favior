@@ -8,6 +8,9 @@ import * as dealOfTheDayController from "@/lib/server/controllers/deal-of-the-da
 import * as productsController from "@/lib/server/controllers/products.controller";
 import { defaultDealOfTheDay } from "@/lib/shared/default-deal-of-the-day";
 
+export const dynamic = 'force-dynamic';
+
+
 export const metadata: Metadata = { title: "Deal of the day | Favior Admin" };
 
 export default async function DealOfTheDayPage() {
