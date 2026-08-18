@@ -214,11 +214,37 @@ export default function Navbar() {
             </div>
 
             {data?.user ? (
-              <div className="hidden sm:flex items-center gap-3">
-                <a href={data.user.role === "ADMIN" ? "/dashboard" : "/profile"} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-900 hover:opacity-60">{data.user.name}</a>
-                <button onClick={() => {
-                  authClient.signOut().then(() => window.location.reload());
-                }} className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-500 hover:text-zinc-900">Logout</button>
+              <div className="hidden sm:flex items-center">
+                <div className="group relative flex items-center justify-center">
+                  <a
+                    href={data.user.role === "ADMIN" ? "/dashboard" : "/profile"}
+                    className="nav-icon-link flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 text-zinc-900 hover:opacity-60 transition-opacity"
+                    aria-label="Account"
+                  >
+                    <UserIcon />
+                  </a>
+                  
+                  {/* Dropdown Menu on Hover */}
+                  <div className="absolute top-full right-0 pt-2 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200 z-50">
+                    <div className="bg-white border border-zinc-100 shadow-xl flex flex-col min-w-[160px] py-1">
+                      <a 
+                        href={data.user.role === "ADMIN" ? "/dashboard" : "/profile"} 
+                        className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-900 px-4 py-2.5 hover:bg-zinc-50 transition-colors truncate block"
+                      >
+                        {data.user.name}
+                      </a>
+                      <div className="h-px w-full bg-zinc-100 my-1" />
+                      <button 
+                        onClick={() => {
+                          authClient.signOut().then(() => window.location.reload());
+                        }} 
+                        className="text-xs font-medium uppercase tracking-[0.08em] text-zinc-500 hover:text-zinc-900 px-4 py-2.5 text-left w-full hover:bg-zinc-50 transition-colors"
+                      >
+                        LOGOUT
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             ) : (
               <a
