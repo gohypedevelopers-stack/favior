@@ -1,11 +1,12 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { User, Package, MapPin, Heart } from "lucide-react";
 import LogoutButton from "./logout-button";
 
-export default function ProfileSidebar({ userName, userEmail }: { userName: string, userEmail: string }) {
+function ProfileSidebarContent({ userName, userEmail }: { userName: string, userEmail: string }) {
   const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "profile";
 
@@ -61,5 +62,13 @@ export default function ProfileSidebar({ userName, userEmail }: { userName: stri
          <LogoutButton />
       </div>
     </div>
+  );
+}
+
+export default function ProfileSidebar(props: { userName: string, userEmail: string }) {
+  return (
+    <Suspense fallback={<div style={{ flex: "1 1 250px", minWidth: "250px" }}>Loading...</div>}>
+      <ProfileSidebarContent {...props} />
+    </Suspense>
   );
 }
