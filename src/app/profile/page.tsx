@@ -63,7 +63,7 @@ export default async function ProfilePage(props: Props) {
                   </div>
                 ) : (
                   <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                    {orders.map((order) => (
+                    {orders.map((order: any) => (
                       <div key={order.id} style={{ border: "1px solid #f4f4f5", padding: "24px", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "16px" }}>
                         <div>
                           <p style={{ fontSize: "12px", fontWeight: "500", textTransform: "uppercase", color: "#18181b", letterSpacing: "0.05em", margin: "0 0 8px 0" }}>Order #{order.id.slice(-6)}</p>
